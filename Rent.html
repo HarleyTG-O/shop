@@ -155,64 +155,44 @@
   </div>
 
 <script>
-  // Data source for the plans and prices
-  const hostingPlans = {
-    "Starter": { "Monthly": "$6" },
-    "Starter+": { "Monthly": "$14" },
-    "Advanced": { "Monthly": "$24" },
-    "Advanced+": { "Monthly": "$48" },
-    "Pro": { "Monthly": "$80" },
-    "Pro+": { "Monthly": "$120" }
-  };
+  // Data source for the rental plans
+  const menuPlans = [
+    {
+      name: "Stand's Menu Rental",
+      image: "Images/stand_logo.jpg",
+      features: "Full access to the Stand's menu for your rental period.",
+      prices: { "7": "$5", "30": "$20" },
+    },
+    {
+      name: "0xCheats RDR2 Menu Rental",
+      image: "Images/0xcheats_logo.png",
+      features: "Full access to the 0xCheats RDR2 menu for your rental period.",
+      prices: { "7": "$3", "30": "$15" },
+    },
+  ];
 
   // Function to navigate to the payment page with selected item and duration
   function goToPaymentPage(item, duration) {
     if (duration) {
-      // Get the price for the selected plan and duration
-      const price = hostingPlans[item]?.[duration] || "Price not available";
+      // Find the selected plan from the menuPlans array
+      const selectedPlan = menuPlans.find(plan => plan.name === item);
 
-      // Store values in localStorage
-      localStorage.setItem('selectedItem', item);
-      localStorage.setItem('selectedDuration', duration);
-      localStorage.setItem('selectedPrice', price);
+      if (selectedPlan) {
+        // Get the price for the selected duration
+        const price = selectedPlan.prices[duration];
 
-      // Redirect to Pay.html page
-      window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
+        // Store values in localStorage
+        localStorage.setItem('selectedItem', item);
+        localStorage.setItem('selectedDuration', duration);
+        localStorage.setItem('selectedPrice', price);
+
+        // Redirect to Pay.html page
+        window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
+      }
     }
   }
 </script>
 
-<div class="plan-section">
-  <!-- Plan Cards -->
-  ${['Starter', 'Starter+', 'Advanced', 'Advanced+', 'Pro', 'Pro+'].map(plan => `
-    <div class="plan-card">
-      <h2>${plan}</h2>
-      <p><strong>RAM:</strong> ${getPlanSpecs(plan).ram} MB<br>
-      <strong>CPU:</strong> ${getPlanSpecs(plan).cpu}%<br>
-      <strong>Storage:</strong> ${getPlanSpecs(plan).storage} MB</p>
-      <p><strong>Monthly:</strong> ${hostingPlans[plan]['Monthly']}</p>
-      <select onchange="goToPaymentPage('${plan}', this.value)">
-        <option value="">Select Duration</option>
-        <option value="Monthly">Buy Monthly</option>
-      </select>
-    </div>
-  `).join('')}
-</div>
-
-<script>
-  // Helper function to retrieve plan specifications
-  function getPlanSpecs(plan) {
-    const specs = {
-      "Starter": { ram: 256, cpu: 20, storage: 1024 },
-      "Starter+": { ram: 512, cpu: 25, storage: 2048 },
-      "Advanced": { ram: 1024, cpu: 50, storage: 3072 },
-      "Advanced+": { ram: 2048, cpu: 100, storage: 4096 },
-      "Pro": { ram: 4096, cpu: 150, storage: 6124 },
-      "Pro+": { ram: 6144, cpu: 200, storage: 6124 }
-    };
-    return specs[plan];
-  }
-</script>
 
 
 </body>
