@@ -132,12 +132,22 @@
   </div>
 
   <script>
-    // Retrieve selected item and duration from localStorage and display them
-    let selectedItem = localStorage.getItem('selectedItem');
-    let selectedDuration = localStorage.getItem('selectedDuration');
+// Retrieve selected item, duration, and price from localStorage and display them
+let selectedItem = localStorage.getItem('selectedItem');
+let selectedDuration = localStorage.getItem('selectedDuration');
+let selectedPrice = localStorage.getItem('selectedPrice'); // Retrieve price
 
-    document.getElementById('item').innerText = selectedItem || 'Not selected';  // Display selected item
-    document.getElementById('duration').innerText = selectedDuration || 'Not selected';  // Display selected duration
+document.getElementById('item').innerText = selectedItem || 'Not selected';  // Display selected item
+document.getElementById('duration').innerText = selectedDuration || 'Not selected';  // Display selected duration
+
+// Display selected price if available
+if (selectedPrice) {
+  const priceElement = document.createElement('p');
+  priceElement.style.color = '#ccc';
+  priceElement.style.textAlign = 'center';
+  priceElement.innerText = `Selected Price: ${selectedPrice}`;
+  document.querySelector('.container').insertBefore(priceElement, document.querySelector('.nav-buttons'));
+}
 
     // Function to generate a random Customer ID
     function generateCustomerId() {
