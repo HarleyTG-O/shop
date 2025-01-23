@@ -90,9 +90,11 @@
       </h1>
     <p style="text-align: center; color: #ccc;">Please follow the instructions below to complete your payment.</p>
 
-    <!-- Display Selected Item and Duration -->
+    <!-- Display Selected Item, Duration, and Price -->
     <p style="color: #ccc; text-align: center;">Selected Item: <span id="item"></span></p>
     <p style="color: #ccc; text-align: center;">Selected Duration: <span id="duration"></span></p>
+    <p style="color: #ccc; text-align: center;">Selected Price: <span id="price"></span></p> <!-- Added for price -->
+
 
     <!-- Navigation Buttons -->
     <div class="nav-buttons">
@@ -133,12 +135,15 @@
 
   <script>
 // Retrieve selected item, duration, and price from localStorage and display them
+// Retrieve selected item, duration, and price from localStorage and display them
 let selectedItem = localStorage.getItem('selectedItem');
 let selectedDuration = localStorage.getItem('selectedDuration');
 let selectedPrice = localStorage.getItem('selectedPrice'); // Retrieve price
 
 document.getElementById('item').innerText = selectedItem || 'Not selected';  // Display selected item
 document.getElementById('duration').innerText = selectedDuration || 'Not selected';  // Display selected duration
+document.getElementById('price').innerText = selectedPrice || 'Not selected';  // Display selected price
+
 
 // Display selected price if available
 if (selectedPrice) {
