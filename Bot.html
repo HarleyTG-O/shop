@@ -92,13 +92,12 @@
       outline: none;
       border: 2px solid #00c2ed;
     }
-      
+
     .nav-buttons {
       text-align: center;
       margin-top: 30px;
-      margin-bottom: 20px; /* Add space below the nav bar */
+      margin-bottom: 20px;
     }
-
 
     .nav-buttons button {
       margin: 5px;
@@ -114,6 +113,7 @@
     .nav-buttons button:hover {
       background-color: #0056b3;
     }
+
     @media (max-width: 600px) {
       .plan-card {
         width: 100%;
@@ -132,7 +132,7 @@
       Select the perfect hosting plan for your needs.
     </p>
 
-        <!-- Navigation Buttons -->
+    <!-- Navigation Buttons -->
     <div class="nav-buttons">
         <button onclick="window.history.back()">Back</button>
         <button onclick="window.location.href='index.html'">Go Home</button>
@@ -140,135 +140,82 @@
         <button onclick="window.location.href='Bot.html'">Rent Bot Hosting</button>
     </div>
 
-
-    <div class="plan-section">
-      <!-- Starter Plan -->
-      <div class="plan-card">
-        <h2>Starter</h2>
-        <p><strong>RAM:</strong> 256 MB<br><strong>CPU:</strong> 20%<br><strong>Storage:</strong> 1024 MB</p>
-        <p><strong>Monthly:</strong> $6</p>
-        <select onchange="goToPaymentPage('Starter', this.value)">
-          <option value="">Select Duration</option>
-          <option value="Monthly">Buy Monthly</option>
-        </select>
-      </div>
-
-      <!-- Starter+ Plan -->
-      <div class="plan-card">
-        <h2>Starter+</h2>
-        <p><strong>RAM:</strong> 512 MB<br><strong>CPU:</strong> 25%<br><strong>Storage:</strong> 2048 MB</p>
-        <p><strong>Monthly:</strong> $14</p>
-        <select onchange="goToPaymentPage('Starter+', this.value)">
-          <option value="">Select Duration</option>
-          <option value="Monthly">Buy Monthly</option>
-        </select>
-      </div>
-
-      <!-- Advanced Plan -->
-      <div class="plan-card">
-        <h2>Advanced</h2>
-        <p><strong>RAM:</strong> 1024 MB<br><strong>CPU:</strong> 50%<br><strong>Storage:</strong> 3072 MB</p>
-        <p><strong>Monthly:</strong> $24</p>
-        <select onchange="goToPaymentPage('Advanced', this.value)">
-          <option value="">Select Duration</option>
-          <option value="Monthly">Buy Monthly</option>
-        </select>
-      </div>
-
-      <!-- Advanced+ Plan -->
-      <div class="plan-card">
-        <h2>Advanced+</h2>
-        <p><strong>RAM:</strong> 2048 MB<br><strong>CPU:</strong> 100%<br><strong>Storage:</strong> 4096 MB</p>
-        <p><strong>Monthly:</strong> $48</p>
-        <select onchange="goToPaymentPage('Advanced+', this.value)">
-          <option value="">Select Duration</option>
-          <option value="Monthly">Buy Monthly</option>
-        </select>
-      </div>
-
-      <!-- Pro Plan -->
-      <div class="plan-card">
-        <h2>Pro</h2>
-        <p><strong>RAM:</strong> 4096 MB<br><strong>CPU:</strong> 150%<br><strong>Storage:</strong> 6124 MB</p>
-        <p><strong>Monthly:</strong> $80</p>
-        <select onchange="goToPaymentPage('Pro', this.value)">
-          <option value="">Select Duration</option>
-          <option value="Monthly">Buy Monthly</option>
-        </select>
-      </div>
-
-      <!-- Pro+ Plan -->
-      <div class="plan-card">
-        <h2>Pro+</h2>
-        <p><strong>RAM:</strong> 6144 MB<br><strong>CPU:</strong> 200%<br><strong>Storage:</strong> 6124 MB</p>
-        <p><strong>Monthly:</strong> $120</p>
-        <select onchange="goToPaymentPage('Pro+', this.value)">
-          <option value="">Select Duration</option>
-          <option value="Monthly">Buy Monthly</option>
-        </select>
-      </div>
+    <!-- Plan Cards -->
+    <div class="plan-section" id="plan-cards-container">
+      <!-- Dynamic plans will be injected here -->
     </div>
+
   </div>
 
-<script>
-  // Data source for the plans and prices
-  const hostingPlans = {
-    "Starter": { "Monthly": "$6" },
-    "Starter+": { "Monthly": "$14" },
-    "Advanced": { "Monthly": "$24" },
-    "Advanced+": { "Monthly": "$48" },
-    "Pro": { "Monthly": "$80" },
-    "Pro+": { "Monthly": "$120" }
-  };
-
-  // Function to navigate to the payment page with selected item and duration
-  function goToPaymentPage(item, duration) {
-    if (duration) {
-      // Get the price for the selected plan and duration
-      const price = hostingPlans[item]?.[duration] || "Price not available";
-
-      // Store values in localStorage
-      localStorage.setItem('selectedItem', item);
-      localStorage.setItem('selectedDuration', duration);
-      localStorage.setItem('selectedPrice', price);
-
-      // Redirect to Pay.html page
-      window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
-    }
-  }
-</script>
-
-<div class="plan-section">
-  <!-- Plan Cards -->
-  ${['Starter', 'Starter+', 'Advanced', 'Advanced+', 'Pro', 'Pro+'].map(plan => `
-    <div class="plan-card">
-      <h2>${plan}</h2>
-      <p><strong>RAM:</strong> ${getPlanSpecs(plan).ram} MB<br>
-      <strong>CPU:</strong> ${getPlanSpecs(plan).cpu}%<br>
-      <strong>Storage:</strong> ${getPlanSpecs(plan).storage} MB</p>
-      <p><strong>Monthly:</strong> ${hostingPlans[plan]['Monthly']}</p>
-      <select onchange="goToPaymentPage('${plan}', this.value)">
-        <option value="">Select Duration</option>
-        <option value="Monthly">Buy Monthly</option>
-      </select>
-    </div>
-  `).join('')}
-</div>
-
-<script>
-  // Helper function to retrieve plan specifications
-  function getPlanSpecs(plan) {
-    const specs = {
-      "Starter": { ram: 256, cpu: 20, storage: 1024 },
-      "Starter+": { ram: 512, cpu: 25, storage: 2048 },
-      "Advanced": { ram: 1024, cpu: 50, storage: 3072 },
-      "Advanced+": { ram: 2048, cpu: 100, storage: 4096 },
-      "Pro": { ram: 4096, cpu: 150, storage: 6124 },
-      "Pro+": { ram: 6144, cpu: 200, storage: 6124 }
+  <script>
+    // Data source for the plans and prices
+    const hostingPlans = {
+      "Starter": { "Monthly": "$6" },
+      "Starter+": { "Monthly": "$14" },
+      "Advanced": { "Monthly": "$24" },
+      "Advanced+": { "Monthly": "$48" },
+      "Pro": { "Monthly": "$80" },
+      "Pro+": { "Monthly": "$120" }
     };
-    return specs[plan];
-  }
-</script>
+
+    // Helper function to retrieve plan specifications
+    function getPlanSpecs(plan) {
+      const specs = {
+        "Starter": { ram: 256, cpu: 20, storage: 1024 },
+        "Starter+": { ram: 512, cpu: 25, storage: 2048 },
+        "Advanced": { ram: 1024, cpu: 50, storage: 3072 },
+        "Advanced+": { ram: 2048, cpu: 100, storage: 4096 },
+        "Pro": { ram: 4096, cpu: 150, storage: 6124 },
+        "Pro+": { ram: 6144, cpu: 200, storage: 6124 }
+      };
+      return specs[plan];
+    }
+
+    // Function to dynamically generate the plan cards
+    function generatePlanCards() {
+      const planContainer = document.getElementById("plan-cards-container");
+      
+      // Generate HTML for each plan
+      const planCardsHTML = ['Starter', 'Starter+', 'Advanced', 'Advanced+', 'Pro', 'Pro+'].map(plan => {
+        const specs = getPlanSpecs(plan);
+        return `
+          <div class="plan-card">
+            <h2>${plan}</h2>
+            <p><strong>RAM:</strong> ${specs.ram} MB<br>
+            <strong>CPU:</strong> ${specs.cpu}%<br>
+            <strong>Storage:</strong> ${specs.storage} MB</p>
+            <p><strong>Monthly:</strong> ${hostingPlans[plan]['Monthly']}</p>
+            <select onchange="goToPaymentPage('${plan}', this.value)">
+              <option value="">Select Duration</option>
+              <option value="Monthly">Buy Monthly</option>
+            </select>
+          </div>
+        `;
+      }).join('');
+      
+      // Inject the generated plan cards into the container
+      planContainer.innerHTML = planCardsHTML;
+    }
+
+    // Function to navigate to the payment page with selected item and duration
+    function goToPaymentPage(item, duration) {
+      if (duration) {
+        // Get the price for the selected plan and duration
+        const price = hostingPlans[item]?.[duration] || "Price not available";
+
+        // Store values in localStorage
+        localStorage.setItem('selectedItem', item);
+        localStorage.setItem('selectedDuration', duration);
+        localStorage.setItem('selectedPrice', price);
+
+        // Redirect to Pay.html page
+        window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
+      }
+    }
+
+    // Call function to generate plan cards when the page loads
+    window.onload = generatePlanCards;
+  </script>
 
 </body>
 </html>
