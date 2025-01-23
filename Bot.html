@@ -71,19 +71,26 @@
       margin-bottom: 15px;
     }
 
-    .plan-card a {
-      display: inline-block;
-      padding: 10px 20px;
+    .plan-card select {
+      padding: 12px 20px;
+      border-radius: 8px;
       background-color: #007bff;
       color: white;
-      border-radius: 8px;
-      text-decoration: none;
       font-size: 1rem;
+      border: none;
+      width: 100%;
+      cursor: pointer;
       transition: background-color 0.3s ease;
+      margin-top: 10px;
     }
 
-    .plan-card a:hover {
+    .plan-card select:hover {
       background-color: #0056b3;
+    }
+
+    .plan-card select:focus {
+      outline: none;
+      border: 2px solid #00c2ed;
     }
 
     @media (max-width: 600px) {
@@ -110,7 +117,11 @@
         <h2>Starter</h2>
         <p><strong>RAM:</strong> 256 MB<br><strong>CPU:</strong> 20%<br><strong>Storage:</strong> 1024 MB</p>
         <p><strong>Weekly:</strong> $1.50<br><strong>Monthly:</strong> $6</p>
-        <a href="#" onclick="goToPaymentPage('Starter', 'Weekly')">Select Plan</a>
+        <select onchange="goToPaymentPage('Starter', this.value)">
+          <option value="">Select Duration</option>
+          <option value="Weekly">Buy Weekly</option>
+          <option value="Monthly">Buy Monthly</option>
+        </select>
       </div>
 
       <!-- Starter+ Plan -->
@@ -118,7 +129,11 @@
         <h2>Starter+</h2>
         <p><strong>RAM:</strong> 512 MB<br><strong>CPU:</strong> 25%<br><strong>Storage:</strong> 2048 MB</p>
         <p><strong>Weekly:</strong> $3.50<br><strong>Monthly:</strong> $14</p>
-        <a href="#" onclick="goToPaymentPage('Starter+', 'Weekly')">Select Plan</a>
+        <select onchange="goToPaymentPage('Starter+', this.value)">
+          <option value="">Select Duration</option>
+          <option value="Weekly">Buy Weekly</option>
+          <option value="Monthly">Buy Monthly</option>
+        </select>
       </div>
 
       <!-- Advanced Plan -->
@@ -126,7 +141,11 @@
         <h2>Advanced</h2>
         <p><strong>RAM:</strong> 1024 MB<br><strong>CPU:</strong> 50%<br><strong>Storage:</strong> 3072 MB</p>
         <p><strong>Weekly:</strong> $6<br><strong>Monthly:</strong> $24</p>
-        <a href="#" onclick="goToPaymentPage('Advanced', 'Weekly')">Select Plan</a>
+        <select onchange="goToPaymentPage('Advanced', this.value)">
+          <option value="">Select Duration</option>
+          <option value="Weekly">Buy Weekly</option>
+          <option value="Monthly">Buy Monthly</option>
+        </select>
       </div>
 
       <!-- Advanced+ Plan -->
@@ -134,7 +153,11 @@
         <h2>Advanced+</h2>
         <p><strong>RAM:</strong> 2048 MB<br><strong>CPU:</strong> 100%<br><strong>Storage:</strong> 4096 MB</p>
         <p><strong>Weekly:</strong> $12<br><strong>Monthly:</strong> $48</p>
-        <a href="#" onclick="goToPaymentPage('Advanced+', 'Weekly')">Select Plan</a>
+        <select onchange="goToPaymentPage('Advanced+', this.value)">
+          <option value="">Select Duration</option>
+          <option value="Weekly">Buy Weekly</option>
+          <option value="Monthly">Buy Monthly</option>
+        </select>
       </div>
 
       <!-- Pro Plan -->
@@ -142,7 +165,11 @@
         <h2>Pro</h2>
         <p><strong>RAM:</strong> 4096 MB<br><strong>CPU:</strong> 150%<br><strong>Storage:</strong> 6124 MB</p>
         <p><strong>Weekly:</strong> $20<br><strong>Monthly:</strong> $80</p>
-        <a href="#" onclick="goToPaymentPage('Pro', 'Weekly')">Select Plan</a>
+        <select onchange="goToPaymentPage('Pro', this.value)">
+          <option value="">Select Duration</option>
+          <option value="Weekly">Buy Weekly</option>
+          <option value="Monthly">Buy Monthly</option>
+        </select>
       </div>
 
       <!-- Pro+ Plan -->
@@ -150,7 +177,11 @@
         <h2>Pro+</h2>
         <p><strong>RAM:</strong> 6144 MB<br><strong>CPU:</strong> 200%<br><strong>Storage:</strong> 6124 MB</p>
         <p><strong>Weekly:</strong> $30<br><strong>Monthly:</strong> $120</p>
-        <a href="#" onclick="goToPaymentPage('Pro+', 'Weekly')">Select Plan</a>
+        <select onchange="goToPaymentPage('Pro+', this.value)">
+          <option value="">Select Duration</option>
+          <option value="Weekly">Buy Weekly</option>
+          <option value="Monthly">Buy Monthly</option>
+        </select>
       </div>
     </div>
   </div>
@@ -158,12 +189,14 @@
   <script>
     // Function to navigate to the payment page with selected item and duration
     function goToPaymentPage(item, duration) {
-      // Store values in localStorage
-      localStorage.setItem('selectedItem', item);
-      localStorage.setItem('selectedDuration', duration);
+      if (duration) {
+        // Store values in localStorage
+        localStorage.setItem('selectedItem', item);
+        localStorage.setItem('selectedDuration', duration);
 
-      // Redirect to Pay.html page
-      window.location.href = "Pay.html";  // Ensure Pay.html is in the same folder or provide the correct path
+        // Redirect to Pay.html page
+        window.location.href = "Pay.html";  // Ensure Pay.html is in the same folder or provide the correct path
+      }
     }
   </script>
 
