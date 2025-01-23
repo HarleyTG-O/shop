@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harley's Services</title>
+  <link rel="icon" href="Images/HTG.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .section {
+      display: flex;
+      justify-content: space-around;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .service-card {
+      background-color: #222;
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 20px;
+      width: 40%;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .service-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #00c2ed;
+    }
+
+    .service-card p {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .service-card a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .service-card a:hover {
+      background-color: #0056b3;
+    }
+
+    .coming-soon {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+
+    .coming-soon:hover {
+      background-color: #5a6268;
+    }
+
+    @media (max-width: 600px) {
+      .service-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>
+      <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+      Harley's Services
+    </h1>
+    <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: #ccc;">
+      Explore our Hosting and Rental Services.
+    </p>
+
+    <!-- Updated Service Cards Section -->
+    <div class="section">
+      <!-- Bot Host Section -->
+      <div class="service-card">
+        <h2>Bot Host</h2>
+        <p>Host your bots with ease. Reliable, fast, and always available.</p>
+        <a href="Bot.html">View Bot Hosting Plans</a>
+      </div>
+
+      <!-- Renting Menus Section -->
+      <div class="service-card">
+        <h2>Renting Menus</h2>
+        <p>Our Renting Menus For GTA And Red Dead Online/Story Mode</p>
+        <a href="Rent.html">View Rental - Cheat Menu's</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

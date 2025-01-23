@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harley's Hosting Plans</title>
+  <link rel="icon" href="Images/HTG.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .plan-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .plan-card {
+      background-color: #222;
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 20px;
+      width: 280px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plan-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .plan-card img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+    }
+
+    .plan-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #00c2ed;
+    }
+
+    .plan-card p {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    .plan-card a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .plan-card a:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+      .plan-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>
+        <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+        Harley's Services - Bot Hosting Rental
+      </h1>
+    <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: #ccc;">
+      Select the perfect hosting plan for your needs.
+    </p>
+
+    <div class="plan-section">
+      <!-- Starter Plan -->
+      <div class="plan-card">
+        <h2>Starter</h2>
+        <p><strong>RAM:</strong> 256 MB<br><strong>CPU:</strong> 20%<br><strong>Storage:</strong> 1024 MB</p>
+        <p><strong>Weekly:</strong> $1.50<br><strong>Monthly:</strong> $6</p>
+        <a href="#" onclick="goToPaymentPage('Starter', 'Weekly')">Select Plan</a>
+      </div>
+
+      <!-- Starter+ Plan -->
+      <div class="plan-card">
+        <h2>Starter+</h2>
+        <p><strong>RAM:</strong> 512 MB<br><strong>CPU:</strong> 25%<br><strong>Storage:</strong> 2048 MB</p>
+        <p><strong>Weekly:</strong> $3.50<br><strong>Monthly:</strong> $14</p>
+        <a href="#" onclick="goToPaymentPage('Starter+', 'Weekly')">Select Plan</a>
+      </div>
+
+      <!-- Advanced Plan -->
+      <div class="plan-card">
+        <h2>Advanced</h2>
+        <p><strong>RAM:</strong> 1024 MB<br><strong>CPU:</strong> 50%<br><strong>Storage:</strong> 3072 MB</p>
+        <p><strong>Weekly:</strong> $6<br><strong>Monthly:</strong> $24</p>
+        <a href="#" onclick="goToPaymentPage('Advanced', 'Weekly')">Select Plan</a>
+      </div>
+
+      <!-- Advanced+ Plan -->
+      <div class="plan-card">
+        <h2>Advanced+</h2>
+        <p><strong>RAM:</strong> 2048 MB<br><strong>CPU:</strong> 100%<br><strong>Storage:</strong> 4096 MB</p>
+        <p><strong>Weekly:</strong> $12<br><strong>Monthly:</strong> $48</p>
+        <a href="#" onclick="goToPaymentPage('Advanced+', 'Weekly')">Select Plan</a>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="plan-card">
+        <h2>Pro</h2>
+        <p><strong>RAM:</strong> 4096 MB<br><strong>CPU:</strong> 150%<br><strong>Storage:</strong> 6124 MB</p>
+        <p><strong>Weekly:</strong> $20<br><strong>Monthly:</strong> $80</p>
+        <a href="#" onclick="goToPaymentPage('Pro', 'Weekly')">Select Plan</a>
+      </div>
+
+      <!-- Pro+ Plan -->
+      <div class="plan-card">
+        <h2>Pro+</h2>
+        <p><strong>RAM:</strong> 6144 MB<br><strong>CPU:</strong> 200%<br><strong>Storage:</strong> 6124 MB</p>
+        <p><strong>Weekly:</strong> $30<br><strong>Monthly:</strong> $120</p>
+        <a href="#" onclick="goToPaymentPage('Pro+', 'Weekly')">Select Plan</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to navigate to the payment page with selected item and duration
+    function goToPaymentPage(item, duration) {
+      // Store values in localStorage
+      localStorage.setItem('selectedItem', item);
+      localStorage.setItem('selectedDuration', duration);
+
+      // Redirect to Pay.html page
+      window.location.href = "Pay.html";  // Ensure Pay.html is in the same folder or provide the correct path
+    }
+  </script>
+
+</body>
+</html>

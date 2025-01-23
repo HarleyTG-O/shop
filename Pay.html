@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment System</title>
+  <link rel="icon" href="Images/HTG.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .payment-form {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .payment-form input, .payment-form select {
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .payment-form button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .payment-form button:hover {
+      background-color: #0056b3;
+    }
+
+    .nav-buttons {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .nav-buttons button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>
+        <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+        Harley's Services - Payment System
+      </h1>
+    <p style="text-align: center; color: #ccc;">Please follow the instructions below to complete your payment.</p>
+
+    <!-- Display Selected Item and Duration -->
+    <p style="color: #ccc; text-align: center;">Selected Item: <span id="item"></span></p>
+    <p style="color: #ccc; text-align: center;">Selected Duration: <span id="duration"></span></p>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button onclick="window.history.back()">Back</button>
+        <button onclick="window.location.href='index.html'">Go Home</button>
+        <button onclick="window.location.href='rent_menu.html'">Rent Menu</button>
+        <button onclick="window.location.href='rent_bot_hosting.html'">Rent Bot Hosting</button>
+    </div>
+
+    <!-- Payment Form -->
+    <div class="payment-form">
+      <p style="color: #ccc;">To verify your payment, please enter this <strong>Customer ID</strong> into your Cash App transaction note:</p>
+      <input type="text" id="customerId" readonly required>
+      <p style="color: #ccc;">Please include this Customer ID when you make your payment. This helps us verify your transaction.</p>
+      <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
+
+      <p style="color: #ccc; margin-top: 30px;">Enter your payment details below: Press Pay Completed Buttion Below to Continue</p>
+
+          <!-- Button to Confirm Payment Completed (Styled like other buttons) -->
+    <div style="text-align: center; margin-top: 30px;">
+        <button class="nav-buttons" id="payCompletedBtn" onclick="unlockPaymentForm()">Pay Completed</button>
+      </div>
+
+      <!-- Payment details (Initially hidden) -->
+      <div id="paymentDetails" style="display: none;">
+        <input type="text" id="name" placeholder="Enter Your Name" required>
+        <input type="email" id="email" placeholder="Enter Your Email" required>
+        <input type="text" id="cashAppUser" placeholder="Enter Cash App Username" required>
+        <input type="text" id="transactionId" placeholder="Enter Transaction ID" required>
+
+        <button type="button" onclick="submitTransaction()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve selected item and duration from localStorage and display them
+    let selectedItem = localStorage.getItem('selectedItem');
+    let selectedDuration = localStorage.getItem('selectedDuration');
+
+    document.getElementById('item').innerText = selectedItem || 'Not selected';  // Display selected item
+    document.getElementById('duration').innerText = selectedDuration || 'Not selected';  // Display selected duration
+
+    // Function to generate a random Customer ID
+    function generateCustomerId() {
+      const customerId = Math.random().toString(36).substr(2, 8).toUpperCase();
+      document.getElementById('customerId').value = customerId;
+    }
+
+    // Automatically generate a Customer ID on page load
+    generateCustomerId();
+
+    // Unlock the payment details form when "Pay Completed" button is clicked
+    function unlockPaymentForm() {
+      document.getElementById('paymentDetails').style.display = 'block';  // Show payment details section
+      document.getElementById('payCompletedBtn').style.display = 'none';  // Hide "Pay Completed" button
+    }
+
+    // Function to submit payment details
+    async function submitTransaction() {
+      const customerId = document.getElementById('customerId').value;
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const cashAppUser = document.getElementById('cashAppUser').value;
+      const transactionId = document.getElementById('transactionId').value;
+
+      // Use selectedItem and selectedDuration instead of serviceType
+      const serviceType = `Item: ${selectedItem}, Duration: ${selectedDuration}`;
+
+      if (!customerId || !name || !email || !cashAppUser || !transactionId || !serviceType) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const paymentDetails = {
+        content: `<@1210594043806097418> Payment Received`,
+        embeds: [{
+          title: `Payment Details for ${name}`,
+          fields: [
+            { name: 'Customer ID', value: customerId },
+            { name: 'Service Type', value: serviceType },
+            { name: 'Name', value: name },
+            { name: 'Email', value: email },
+            { name: 'Cash App Username', value: cashAppUser },
+            { name: 'Transaction ID', value: transactionId }
+          ]
+        }]
+      };
+
+      try {
+        const response = await fetch('https://discord.com/api/webhooks/1331759874446459023/cLAWJbGUQ0iye7YKzPE1IOzxYRvGSmrreczw7go9It052zJLFfUmehx-tyXSU1hivaIg', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(paymentDetails)
+        });
+
+        if (response.ok) {
+          alert('Thank you for your payment! Your transaction is being processed.');
+        } else {
+          alert('There was an error submitting your payment details. Please try again.');
+        }
+      } catch (error) {
+        alert('An error occurred while sending your payment details. Please try again later.');
+      }
+    }
+  </script>
+
+</body>
+</html>
