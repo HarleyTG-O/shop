@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,18 +32,22 @@
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
     }
 
-    .payment-form {
-      text-align: center;
-      margin-top: 30px;
+    .card {
+      padding: 20px;
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
     }
 
-    .payment-form input, .payment-form select {
-      padding: 10px;
-      font-size: 1rem;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      width: 100%;
-      max-width: 400px;
+    .card h3 {
+      margin: 0 0 10px;
+      color: #007bff;
+    }
+
+    .payment-form input, .payment-form select, .payment-form button {
+      width: calc(100% - 40px);
+      margin: 10px 20px;
     }
 
     .payment-form button {
@@ -79,7 +84,6 @@
       background-color: #0056b3;
     }
 
-    /* Overlay styles */
     #overlay {
       position: fixed;
       display: none;
@@ -132,52 +136,50 @@
 
   <div class="container">
     <h1>
-        <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
-        Harley's Services - Payment System
-      </h1>
-    <p style="text-align: center; color: #ccc;">Please follow the instructions below to complete your payment.</p>
-
-    <!-- Display Selected Item, Duration, and Price -->
-    <p style="color: #ccc; text-align: center;">Selected Item: <span id="item"></span></p>
-    <p style="color: #ccc; text-align: center;">Selected Duration: <span id="duration"></span></p>
-    <p style="color: #ccc; text-align: center;">Selected Price: <span id="price"></span></p> <!-- Added for price -->
-
+      <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+      Harley's Services - Payment System
+    </h1>
 
     <!-- Navigation Buttons -->
     <div class="nav-buttons">
-        <button onclick="window.history.back()">Back</button>
-        <button onclick="window.location.href='index.html'">Go Home</button>
-        <button onclick="window.location.href='Rent.html'">Rent Menus</button>
-        <button onclick="window.location.href='Bot.html'">Rent Bot Hosting</button>
+      <button onclick="window.history.back()">Back</button>
+      <button onclick="window.location.href='index.html'">Go Home</button>
+      <button onclick="window.location.href='Rent.html'">Rent Menus</button>
+      <button onclick="window.location.href='Bot.html'">Rent Bot Hosting</button>
+    </div>
+
+    <p style="text-align: center; color: #ccc;">Please follow the instructions below to complete your payment.</p>
+
+    <!-- Combined Selected Item, Duration, and Price Card -->
+    <div class="card">
+      <h3>Selected Details</h3>
+      <p>Item: <span id="item">Starter+</span></p>
+      <p>Duration: <span id="duration">Weekly</span></p>
+      <p>Price: <span id="price">Not selected</span></p>
     </div>
 
     <!-- Payment Form -->
-    <div class="payment-form">
-      <p style="color: #ccc;">To verify your payment, please enter this <strong>Customer ID</strong> into your Cash App transaction note:</p>
+    <div class="card payment-form">
+      <p>To verify your payment, please enter this <strong>Customer ID</strong> into your Cash App transaction note:</p>
       <input type="text" id="customerId" readonly required>
-      <p style="color: #ccc;">Please include this Customer ID when you make your payment. This helps us verify your transaction.</p>
-      <p style="color: #ccc;">
-      <a href="https://cash.app/$HarleyTGO" style="color: #ccc;" target="_blank">Cashapp $HarleyTGO</a>
+      <p>Please include this Customer ID when you make your payment. This helps us verify your transaction.</p>
+      <p>
+        <a href="https://cash.app/$HarleyTGO" style="color: #ccc;" target="_blank">Cashapp $HarleyTGO</a>
       </p>
       <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
-
-      <p style="color: #ccc; margin-top: 30px;">Enter your payment details below: Press Pay Completed Buttion Below to Continue</p>
-
-          <!-- Button to Confirm Payment Completed (Styled like other buttons) -->
-    <div style="text-align: center; margin-top: 30px;">
-        <button class="nav-buttons" id="payCompletedBtn" onclick="unlockPaymentForm()">Pay Completed</button>
-      </div>
-
-      <!-- Payment details (Initially hidden) -->
-      <div id="paymentDetails" style="display: none;">
-        <input type="text" id="name" placeholder="Enter Your Name" required>
-        <input type="email" id="email" placeholder="Enter Your Email" required>
-        <input type="text" id="cashAppUser" placeholder="Enter Cash App Username" required>
-        <input type="text" id="transactionId" placeholder="Enter Transaction ID" required>
-
-        <button type="button" onclick="submitTransaction()">Submit</button>
-      </div>
+      <button id="payCompletedBtn" class="payment-form-button" onclick="unlockPaymentForm()">Pay Completed</button>
     </div>
+
+    <!-- Payment details form (Initially hidden) -->
+    <div class="card payment-form" id="paymentDetails" style="display: none;">
+      <p>Enter your payment details below and press the button to continue:</p>
+      <input type="text" id="name" placeholder="Enter Your Name" required>
+      <input type="email" id="email" placeholder="Enter Your Email" required>
+      <input type="text" id="cashAppUser" placeholder="Enter Cash App Username" required>
+      <input type="text" id="transactionId" placeholder="Enter Transaction ID" required>
+      <button type="button" onclick="submitTransaction()">Submit</button>
+    </div>
+
   </div>
 
   <div id="overlay">
@@ -188,15 +190,14 @@
   </div>
 
   <script>
-// Retrieve selected item, duration, and price from localStorage and display them
-let selectedItem = localStorage.getItem('selectedItem');
-let selectedDuration = localStorage.getItem('selectedDuration');
-let selectedPrice = localStorage.getItem('selectedPrice'); // Retrieve price
+    // Retrieve selected item, duration, and price from localStorage and display them
+    let selectedItem = localStorage.getItem('selectedItem');
+    let selectedDuration = localStorage.getItem('selectedDuration');
+    let selectedPrice = localStorage.getItem('selectedPrice');
 
-document.getElementById('item').innerText = selectedItem || 'Not selected';  // Display selected item
-document.getElementById('duration').innerText = selectedDuration || 'Not selected';  // Display selected duration
-document.getElementById('price').innerText = selectedPrice || 'Not selected';  // Display selected price
-
+    document.getElementById('item').innerText = selectedItem || 'Starter+';
+    document.getElementById('duration').innerText = selectedDuration || 'Weekly';
+    document.getElementById('price').innerText = selectedPrice || 'Not selected';
 
     // Function to generate a random Customer ID
     function generateCustomerId() {
@@ -209,8 +210,8 @@ document.getElementById('price').innerText = selectedPrice || 'Not selected';  /
 
     // Unlock the payment details form when "Pay Completed" button is clicked
     function unlockPaymentForm() {
-      document.getElementById('paymentDetails').style.display = 'block';  // Show payment details section
-      document.getElementById('payCompletedBtn').style.display = 'none';  // Hide "Pay Completed" button
+      document.getElementById('paymentDetails').style.display = 'block';
+      document.getElementById('payCompletedBtn').style.display = 'none';
     }
 
     // Function to submit payment details
@@ -220,9 +221,7 @@ document.getElementById('price').innerText = selectedPrice || 'Not selected';  /
       const email = document.getElementById('email').value;
       const cashAppUser = document.getElementById('cashAppUser').value;
       const transactionId = document.getElementById('transactionId').value;
-
-      // Use selectedItem and selectedDuration instead of serviceType
-      const serviceType = `Item: ${selectedItem}, Duration: ${selectedDuration}`;
+      const serviceType = `Item: ${document.getElementById('item').innerText}, Duration: ${document.getElementById('duration').innerText}`;
 
       if (!customerId || !name || !email || !cashAppUser || !transactionId || !serviceType) {
         alert('Please fill out all fields.');
@@ -253,7 +252,6 @@ document.getElementById('price').innerText = selectedPrice || 'Not selected';  /
           body: JSON.stringify(paymentDetails)
         });
 
-        // Show the overlay
         document.getElementById('overlay').style.display = 'block';
 
       } catch (error) {
