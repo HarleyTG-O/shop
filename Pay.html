@@ -160,14 +160,16 @@
     <!-- Payment Options -->
     <div class="card">
       <h3>Select Payment Method</h3>
-      <input type="radio" id="cashAppOption" name="paymentMethod" value="cashApp" onclick="togglePaymentMethod()" checked>
+      <input type="radio" id="noneOption" name="paymentMethod" value="none" onclick="togglePaymentMethod()" checked>
+      <label for="noneOption">None</label>
+      <input type="radio" id="cashAppOption" name="paymentMethod" value="cashApp" onclick="togglePaymentMethod()">
       <label for="cashAppOption">Cash App</label>
       <input type="radio" id="koFiOption" name="paymentMethod" value="koFi" onclick="togglePaymentMethod()">
       <label for="koFiOption">Ko-fi</label>
     </div>
 
     <!-- Cash App Payment Form -->
-    <div class="card payment-form" id="cashAppForm">
+    <div class="card payment-form" id="cashAppForm" style="display: none;">
       <p>To verify your payment, please enter this <strong>Customer ID</strong> into your Cash App transaction note:</p>
       <input type="text" id="customerId" readonly required>
       <p>Please include this Customer ID when you make your payment. This helps us verify your transaction.</p>
@@ -192,11 +194,22 @@
       <input type="email" id="email" placeholder="Enter Your Email" required>
       <input type="text" id="cashAppUser" placeholder="Enter Cash App Username" required>
       <input type="text" id="transactionId" placeholder="Enter Transaction ID" required>
+
+      <!-- Add space between sections -->
+      <br><br>
+
+      <!-- Discord Username (Optional) -->
+      <label for="discord-username">Discord Username <small>(Optional)</small></label>
+      <input type="text" id="discord-username" name="discord-username" placeholder="Enter your Discord username (Optional)" oninput="checkLowercase()">
+      <strong>Note:</strong> Please ensure the case of your username is accurate. (e.g., Discord Usernames are all lowercase).
+
       <!-- Add space between sections -->
       <br><br>
 
       <button type="button" onclick="submitTransaction()">Submit</button>
     </div>
+
+  </div>
 
   <div id="overlay">
     <div id="overlay-content">
@@ -206,13 +219,11 @@
   </div>
 
   <script>
-    // Retrieve selected item, duration, and price from localStorage and display them
+    // Retrieve selected item and price from localStorage and display them
     let selectedItem = localStorage.getItem('selectedItem');
-    let selectedDuration = localStorage.getItem('selectedDuration');
     let selectedPrice = localStorage.getItem('selectedPrice');
 
-    document.getElementById('item').innerText = selectedItem || 'Starter+';
-    document.getElementById('duration').innerText = selectedDuration || 'Weekly';
+    document.getElementById('item').innerText = selectedItem || 'No Item Selected';
     document.getElementById('price').innerText = selectedPrice || 'Not selected';
 
     // Function to generate a random Customer ID
@@ -237,6 +248,7 @@
       const email = document.getElementById('email').value;
       const cashAppUser = document.getElementById('cashAppUser').value;
       const transactionId = document.getElementById('transactionId').value;
+      const discordUsername = document.getElementById('discord-username').value;
       const serviceType = `Item: ${document.getElementById('item').innerText}, Duration: ${document.getElementById('duration').innerText}`;
 
       if (!customerId || !name || !email || !cashAppUser || !transactionId || !serviceType) {
@@ -254,7 +266,8 @@
             { name: 'Name', value: name },
             { name: 'Email', value: email },
             { name: 'Cash App Username', value: cashAppUser },
-            { name: 'Transaction ID', value: transactionId }
+            { name: 'Transaction ID', value: transactionId },
+            { name: 'Discord Username', value: discordUsername || 'N/A' }
           ]
         }]
       };
@@ -272,6 +285,40 @@
 
       } catch (error) {
         alert('An error occurred while sending your payment details. Please try again later.');
+      }
+    }
+
+    // Toggle between payment methods
+    function togglePaymentMethod() {
+      const cashAppForm = document.getElementById('cashAppForm');
+      const koFiForm = document.getElementById('koFiForm');
+      const paymentDetails = document.getElementById('paymentDetails');
+
+      if (document.getElementById('cashAppOption').checked) {
+        cashAppForm.style.display = 'block';
+        koFiForm.style.display = 'none';
+        paymentDetails.style.display = 'none';
+      } else if (document.getElementById('koFiOption').checked) {
+        cashAppForm.style.display = 'none';
+        koFiForm.style.display = 'block';
+        paymentDetails.style.display = 'none';
+      } else {
+        cashAppForm.style.display = 'none';
+        koFiForm.style.display = 'none';
+        paymentDetails.style.display = 'none';
+      }
+    }
+
+    // Check if Discord username is lowercase
+    function checkLowercase() {
+      const input = document.getElementById('discord-username');
+      const value = input.value;
+      const isLowercase = /^[a-z]+$/.test(value); // Regular expression to check if the string is all lowercase
+
+      if (!isLowercase) {
+        input.setCustomValidity('Username must be all lowercase letters.');
+      } else {
+        input.setCustomValidity('');
       }
     }
   </script>
