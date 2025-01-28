@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,12 +153,21 @@
     <div class="card">
       <h3>Selected Details</h3>
       <p>Item: <span id="item">Starter+</span></p>
-      <p>Duration: <span id="duration">Weekly</span></p>
+      <p>Duration: <span id="duration">Monthly</span></p>
       <p>Price: <span id="price">Not selected</span></p>
     </div>
 
-    <!-- Payment Form -->
-    <div class="card payment-form">
+    <!-- Payment Options -->
+    <div class="card">
+      <h3>Select Payment Method</h3>
+      <input type="radio" id="cashAppOption" name="paymentMethod" value="cashApp" onclick="togglePaymentMethod()" checked>
+      <label for="cashAppOption">Cash App</label>
+      <input type="radio" id="koFiOption" name="paymentMethod" value="koFi" onclick="togglePaymentMethod()">
+      <label for="koFiOption">Ko-fi</label>
+    </div>
+
+    <!-- Cash App Payment Form -->
+    <div class="card payment-form" id="cashAppForm">
       <p>To verify your payment, please enter this <strong>Customer ID</strong> into your Cash App transaction note:</p>
       <input type="text" id="customerId" readonly required>
       <p>Please include this Customer ID when you make your payment. This helps us verify your transaction.</p>
@@ -170,6 +178,13 @@
       <button id="payCompletedBtn" class="payment-form-button" onclick="unlockPaymentForm()">Pay Completed</button>
     </div>
 
+    <!-- Ko-fi Payment Form -->
+    <div class="card payment-form" id="koFiForm" style="display: none;">
+      <h3>Support via Ko-fi</h3>
+      <p>If you prefer, you can make a one-time payment through Ko-fi:</p>
+      <iframe id='kofiframe' src='https://ko-fi.com/harleytg/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='harleytg'></iframe>
+    </div>
+
     <!-- Payment details form (Initially hidden) -->
     <div class="card payment-form" id="paymentDetails" style="display: none;">
       <p>Enter your payment details below and press the button to continue:</p>
@@ -177,10 +192,11 @@
       <input type="email" id="email" placeholder="Enter Your Email" required>
       <input type="text" id="cashAppUser" placeholder="Enter Cash App Username" required>
       <input type="text" id="transactionId" placeholder="Enter Transaction ID" required>
+      <!-- Add space between sections -->
+      <br><br>
+
       <button type="button" onclick="submitTransaction()">Submit</button>
     </div>
-
-  </div>
 
   <div id="overlay">
     <div id="overlay-content">
