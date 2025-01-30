@@ -17,44 +17,44 @@
     h1 {
       text-align: center;
       color: #fff;
-      margin-top: 20px; /* Adjusted margin to bring closer */
-      font-size: 2.5rem;
+      margin-top: 20px;
+      font-size: 2rem;
       font-weight: 600;
     }
 
     .container {
-      max-width: 40%; /* Reduced width of container */
-      margin: 30px auto; /* Reduced margin for closer alignment */
+      max-width: 1200px;
+      margin: 40px auto;
       padding: 20px;
       background-color: #1c1c1c;
       border-radius: 10px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-      text-align: center;
     }
 
-    /* Grid layout for the service gallery */
+    /* 2x5 grid layout for the service gallery */
     .service-gallery {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 columns */
-      gap: 5px; /* Reduced gap between items */
-      padding: 5px;
+      grid-template-columns: repeat(5, 1fr); /* 5 columns */
+      gap: 20px; /* Adjusted gap between items */
+      grid-auto-rows: auto;
       justify-items: center;
+      margin-top: 20px;
     }
-
+    
     .service-card {
       background-color: #222;
       border: 1px solid #444;
       border-radius: 10px;
-      padding: 12px;
+      padding: 15px;
+      width: 100%;
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 100%;
-      max-width: 200px; /* Reduced max width to bring cards closer */
     }
+
 
     .service-card:hover {
       transform: scale(1.05);
@@ -63,58 +63,37 @@
 
     .service-card img {
       width: 100%;
-      max-height: 100px;
+      max-height: 80px;
       object-fit: contain;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       border-radius: 5px;
     }
 
     .service-card h2 {
-      font-size: 1.4rem;
-      margin-bottom: 8px;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
       color: #00c2ed;
     }
 
     .service-card p {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #ccc;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .service-card a {
       display: inline-block;
-      padding: 8px 12px;
+      padding: 6px 10px;
       background-color: #007bff;
       color: white;
       border-radius: 8px;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transition: background-color 0.3s ease;
       margin-top: auto;
     }
 
     .service-card a:hover {
-      background-color: #0056b3;
-    }
-
-    .nav-buttons {
-      text-align: center;
-      margin-top: 30px;
-      margin-bottom: 20px;
-    }
-
-    .nav-buttons button {
-      margin: 5px;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border-radius: 8px;
-      font-size: 1rem;
-      border: none;
-      cursor: pointer;
-    }
-
-    .nav-buttons button:hover {
       background-color: #0056b3;
     }
 
@@ -133,11 +112,10 @@
       <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
       Harley's Services
     </h1>
-    <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: #ccc;">
+    <p style="text-align: center; margin-bottom: 30px; font-size: 1rem; color: #ccc;">
       Explore our Hosting and Rental Services.
     </p>
 
-    <!-- Services Gallery (Now 2x4 grid) -->
     <div class="service-gallery">
       <!-- Discord Server -->
       <div class="service-card">
