@@ -32,28 +32,16 @@
       text-align: center;
     }
 
-    /* Horizontal scrolling gallery */
+    /* Grid layout for the service gallery */
     .service-gallery {
-      display: flex;
-      overflow-x: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
       gap: 20px;
       padding: 10px;
-      white-space: nowrap;
-      scrollbar-width: thin;
-      scrollbar-color: #007bff #222;
-    }
-
-    .service-gallery::-webkit-scrollbar {
-      height: 10px;
-    }
-
-    .service-gallery::-webkit-scrollbar-thumb {
-      background: #007bff;
-      border-radius: 5px;
+      justify-items: center;
     }
 
     .service-card {
-      flex: 0 0 220px; /* Reduce card width to create more spacing */
       background-color: #222;
       border: 1px solid #444;
       border-radius: 10px;
@@ -64,6 +52,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      width: 100%; /* Ensure the cards fill the grid column */
+      max-width: 250px; /* Limit the max width of each card */
     }
 
     .service-card:hover {
@@ -78,7 +68,6 @@
       margin-bottom: 10px;
       border-radius: 5px;
     }
-    
 
     .service-card h2 {
       font-size: 1.5rem;
@@ -141,7 +130,7 @@
       Explore our Hosting and Rental Services.
     </p>
 
-    <!-- Services Gallery (Now Horizontal) -->
+    <!-- Services Gallery (Now 2x4 grid) -->
     <div class="service-gallery">
       <!-- Discord Server -->
       <div class="service-card">
@@ -187,3 +176,4 @@
 
 </body>
 </html>
+
