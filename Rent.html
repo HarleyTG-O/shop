@@ -36,15 +36,16 @@
     }
 
     .plan-card {
-      background-color: #222;
-      border: 1px solid #444;
-      border-radius: 10px;
-      padding: 15px; /* Reduce padding to make it smaller */
-      width: calc(50% - 20px); /* Each card takes up 50% of the container's width */
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      margin-bottom: 20px; /* Optional: Add margin for spacing between rows */
-    }
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 15px; /* Reduce padding to make it smaller */
+  width: calc(50% - 20px); /* Each card takes up 50% of the container's width */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px; /* Optional: Add margin for spacing between rows */
+}
+
 
     .plan-card:hover {
       transform: scale(1.05);
@@ -98,6 +99,7 @@
       margin-bottom: 20px; /* Add space below the nav bar */
     }
 
+
     .nav-buttons button {
       margin: 5px;
       padding: 10px 20px;
@@ -112,13 +114,14 @@
     .nav-buttons button:hover {
       background-color: #0056b3;
     }
-
+    
     @media (max-width: 600px) {
-      .plan-card {
-        width: 100%; /* On smaller screens, each card will take full width */
-        padding: 10px; /* Adjust padding for small screens */
-      }
-    }
+  .plan-card {
+    width: 100%; /* On smaller screens, each card will take full width */
+    padding: 10px; /* Adjust padding for small screens */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -132,7 +135,7 @@
       Rent our menu for your use. Select your rental duration below.
     </p>
 
-    <!-- Navigation Buttons -->
+        <!-- Navigation Buttons -->
     <div class="nav-buttons">
         <button onclick="window.history.back()">Back</button>
         <button onclick="window.location.href='index.html'">Go Home</button>
@@ -198,17 +201,26 @@
     },
   ];
 
-    // Function to navigate to the payment page with selected item and duration
-    function goToPaymentPage(item, duration) {
-      // Store values in localStorage
-      localStorage.setItem('selectedItem', item);
-      localStorage.setItem('selectedDuration', duration);
+  // Function to navigate to the payment page with selected item and duration
+  function goToPaymentPage(item, duration) {
+    if (duration) {
+      // Find the selected plan from the menuPlans array
+      const selectedPlan = menuPlans.find(plan => plan.name === item);
 
-      // Redirect to Pay.html page
-      window.location.href = "Pay.html";  // Ensure Pay.html is in the same folder or provide the correct path
+      if (selectedPlan) {
+        // Get the price for the selected duration
+        const price = selectedPlan.prices[duration];
+
+        // Store values in localStorage
+        localStorage.setItem('selectedItem', item);
+        localStorage.setItem('selectedDuration', duration);
+        localStorage.setItem('selectedPrice', price);
+
+        // Redirect to Pay.html page
+        window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
+      }
     }
-  </script>
-
+  }
+</script>
 </body>
 </html>
-
