@@ -154,7 +154,6 @@
       <h3>Selected Details</h3>
       <p>Item: <span id="item">Starter+</span></p>
       <p>Duration: <span id="duration">Monthly</span></p>
-      <p>Price: <span id="price">Not selected</span></p>
       <p>Price with Tax: <span id="priceWithTax">Not selected</span></p>
     </div>
 
@@ -219,15 +218,14 @@
     </div>
   </div>
 
- <script>
+<script>
   // Retrieve selected item and price from localStorage
-    let selectedItem = localStorage.getItem('selectedItem');
-    let selectedDuration = localStorage.getItem('selectedDuration');
-    let selectedPrice = localStorage.getItem('selectedPrice');
+  let selectedItem = localStorage.getItem('selectedItem');
+  let selectedDuration = localStorage.getItem('selectedDuration');
+  let selectedPrice = localStorage.getItem('selectedPrice');
 
-    document.getElementById('item').innerText = selectedItem || 'Starter+';
-    document.getElementById('duration').innerText = selectedDuration || 'Weekly';
-    document.getElementById('price').innerText = selectedPrice || 'Not selected';
+  document.getElementById('item').innerText = selectedItem || 'Starter+';
+  document.getElementById('duration').innerText = selectedDuration || 'Weekly';
 
   // Function to calculate the sales tax
   function calculateTax(price) {
@@ -235,18 +233,14 @@
     return price * taxRate;
   }
 
-  // Function to update the price and price with tax display
+  // Function to update the price with tax display
   function updatePriceDisplay() {
-    const priceElement = document.getElementById('price');
     const priceWithTaxElement = document.getElementById('priceWithTax');
     if (selectedPrice && !isNaN(selectedPrice)) {
       const tax = calculateTax(selectedPrice);
       const totalPrice = selectedPrice + tax;
-      document.getElementById('item').innerText = selectedItem || 'No Item Selected';
-      priceElement.innerText = `Price: $${selectedPrice.toFixed(2)}`;
       priceWithTaxElement.innerText = `Price with Tax: $${totalPrice.toFixed(2)} (Tax: $${tax.toFixed(2)})`;
     } else {
-      priceElement.innerText = 'Not selected';
       priceWithTaxElement.innerText = 'Not selected';
     }
   }
@@ -350,7 +344,6 @@
     }
   }
 </script>
-
 
 </body>
 </html>
