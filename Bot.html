@@ -199,20 +199,13 @@
 
     // Function to navigate to the payment page with selected item and duration
     function goToPaymentPage(item, duration) {
-      if (duration) {
-        // Get the price for the selected plan and duration
-        const price = hostingPlans[item]?.[duration] || "Price not available";
+      // Store values in localStorage
+      localStorage.setItem('selectedItem', item);
+      localStorage.setItem('selectedDuration', duration);
 
-        // Store values in localStorage
-        localStorage.setItem('selectedItem', item);
-        localStorage.setItem('selectedDuration', duration);
-        localStorage.setItem('selectedPrice', price);
-
-        // Redirect to Pay.html page
-        window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
-      }
+      // Redirect to Pay.html page
+      window.location.href = "Pay.html";  // Ensure Pay.html is in the same folder or provide the correct path
     }
-
     // Call function to generate plan cards when the page loads
     window.onload = generatePlanCards;
   </script>
