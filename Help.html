@@ -195,12 +195,12 @@
       try {
         const payload = {
           username: "Harley's Services - Support Form",
-          content: "<@&1330556193780924528>", // Mention the role using its ID
+          content: "", // Mention the role using its ID
           embeds: [
             {
               title: "New Support Request",
               fields: [
-                { name: "Incident ID", value: incidentId, inline: true },
+                { name: "Support ID", value: incidentId, inline: true },
                 { name: "Email", value: email, inline: true },
                 { name: "Name", value: name, inline: true },
                 { name: "Issue Type", value: issueType, inline: true },
@@ -208,7 +208,7 @@
                 { name: "Preferred Contact Method", value: contactMethod, inline: true },
                 { name: "Discord Username", value: discordUsername || "N/A", inline: true }
               ],
-              footer: { text: `Incident ID: ${incidentId}` },
+              footer: { text: `Support ID: ${incidentId}` },
               timestamp: new Date().toISOString()
             }
           ]
