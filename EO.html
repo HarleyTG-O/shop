@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harley's Menu Rental</title>
-  <link rel="icon" href="Images/HTG.png" type="image/png">
+  <title>EngineOwning Mod Menu Purchase</title>
+  <link rel="icon" href="https://www.engineowning.su/shop/img/navlogo.png" type="image/png">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -23,27 +23,34 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1200px;
       margin: 40px auto;
       padding: 20px;
       background-color: #1c1c1c;
       border-radius: 10px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center; /* Center the content horizontally */
-      gap: 20px; /* Add some space between the cards */
-      flex-wrap: wrap; /* Allow the cards to wrap if there's not enough space */
+    }
+
+    .plan-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      grid-auto-rows: auto;
+      justify-items: center;
     }
 
     .plan-card {
       background-color: #222;
       border: 1px solid #444;
       border-radius: 10px;
-      padding: 15px; /* Reduce padding to make it smaller */
-      width: calc(50% - 20px); /* Each card takes up 50% of the container's width */
+      padding: 15px;
+      width: 100%;
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      margin-bottom: 20px; /* Optional: Add margin for spacing between rows */
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .plan-card:hover {
@@ -55,6 +62,7 @@
       max-width: 100%;
       height: auto;
       margin-bottom: 15px;
+      border-radius: 5px;
     }
 
     .plan-card h2 {
@@ -78,6 +86,7 @@
       text-decoration: none;
       font-size: 1rem;
       transition: background-color 0.3s ease;
+      margin-top: auto;
     }
 
     .plan-card a:hover {
@@ -95,7 +104,7 @@
     .nav-buttons {
       text-align: center;
       margin-top: 30px;
-      margin-bottom: 20px; /* Add space below the nav bar */
+      margin-bottom: 20px;
     }
 
     .nav-buttons button {
@@ -112,107 +121,301 @@
     .nav-buttons button:hover {
       background-color: #0056b3;
     }
-    
-    @media (max-width: 600px) {
-      .plan-card {
-        width: 100%; /* On smaller screens, each card will take full width */
-        padding: 10px; /* Adjust padding for small screens */
-      }
-    }
   </style>
 </head>
 <body>
 
   <div class="container">
     <h1>
-      <img src="https://www.engineowning.su/shop/img/navlogo.png" alt="Engine Owning Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
-      Engine Owning - Harley's Services - Mod Menu Rental
+      <img src="https://www.engineowning.su/shop/img/navlogo.png" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+      EngineOwning Mod Menu Purchase
     </h1>
     <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: #ccc;">
-      Rent our menu for your use. Select your rental duration below.
+      Purchase our mod menus for your favorite games. Choose the menu and duration below.
     </p>
 
     <!-- Navigation Buttons -->
     <div class="nav-buttons">
       <button onclick="window.history.back()">Back</button>
       <button onclick="window.location.href='index.html'">Go Home</button>
-      <button onclick="window.location.href='Rent.html'">Rent Menus</button>
-      <button onclick="window.location.href='Bot.html'">Rent Bot Hosting</button>
+      <button onclick="window.location.href='Rent.html'">Rent Menu's</button>
+      <button onclick="window.location.href='Bot.html'">Buy Bot Hosting</button>
+      <button onclick="window.location.href='Resell.html'">Reselling</button>
+      <button onclick="window.location.href='EO.html'">Buy EngineOwning</button>
     </div>
 
-    <!-- Engine Owning Rental Plan -->
-    <div class="plan-card">
-      <img src="Images/bf1_logo.png" alt="Battlefield 1 Logo">
-      <h2>Battlefield 1</h2>
-      <p><strong>Features:</strong> Full access to the Battlefield 1 mod menu for your rental period.</p>
-      <p><strong>Price:</strong></p>
-      <p><strong>3 Days:</strong> $7.00<br><strong>30 Days:</strong> $24.00<br><strong>90 Days:</strong> $45.00</p>
-      <p><strong>Custom Duration:</strong></p>
-      <select id="customDuration1">
-        <option value="3">3 Days</option>
-        <option value="30">30 Days</option>
-        <option value="90">90 Days</option>
-      </select>
-      <a href="#" onclick="goToPaymentPage('Battlefield 1', document.getElementById('customDuration1').value)">Rent Menu</a>
-    </div>
+    <!-- Game Purchase Plans Gallery -->
+    <div class="plan-gallery">
 
-    <!-- Add the other games and spoofer here, using the same pattern -->
-    <div class="plan-card">
-      <img src="Images/bf3_logo.png" alt="Battlefield 3 Logo">
-      <h2>Battlefield 3</h2>
-      <p><strong>Features:</strong> Full access to the Battlefield 3 mod menu for your rental period.</p>
-      <p><strong>Price:</strong></p>
-      <p><strong>3 Days:</strong> $7.00<br><strong>30 Days:</strong> $24.00<br><strong>90 Days:</strong> $45.00</p>
-      <p><strong>Custom Duration:</strong></p>
-      <select id="customDuration2">
-        <option value="3">3 Days</option>
-        <option value="30">30 Days</option>
-        <option value="90">90 Days</option>
-      </select>
-      <a href="#" onclick="goToPaymentPage('Battlefield 3', document.getElementById('customDuration2').value)">Rent Menu</a>
-    </div>
-
-    <!-- Continue for all other games -->
+<!-- EngineOwning for Call of Duty: Black Ops 6 and Warzone -->
+<div class="plan-card" id="item1" data-item="EngineOwning for Call of Duty: Black Ops 6 and Warzone">
+    <img src="https://proxy.engineowning.su/0,spYVz_ehWuDFW8ZvuRkQa1JMmeQnCrpNXKmkZ2ZzVBnw=/http://ytlmg.net:8011/u/5934872/newb06icon.jpg">
+    <h2>EngineOwning for Call of Duty: Black Ops 6 and Warzone</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration1">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Call of Duty: Modern Warfare III (2023) -->
+  <div class="plan-card" id="item2" data-item="EngineOwning for Call of Duty: Modern Warfare III (2023)">
+    <img src="https://proxy.engineowning.su/0,sUwMq-2vEHq0nPfOZ7Zsl7dt2mOw-_w7fGOnwerFd-lc=/http://ytlmg.net:8011/u/5934872/newmw3icon.jpg">
+    <h2>EngineOwning for Call of Duty: Modern Warfare III (2023)</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration2">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning HWID Spoofer -->
+  <div class="plan-card" id="item3" data-item="EngineOwning HWID Spoofer">
+    <img src="https://proxy.engineowning.su/0,sSAPwYN-PB1rZfalW6A0M5goO5K9bt-ezu5cetMgVN_s=/http://ytlmg.net:8011/u/5934872/newspoofericon.jpg">
+    <h2>EngineOwning HWID Spoofer</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration3">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Counter-Strike 2 -->
+  <div class="plan-card" id="item4" data-item="EngineOwning for Counter-Strike 2">
+    <img src="https://proxy.engineowning.su/0,s55Lh1k0ZEiALlxS14Iz7LePfbI0QfLEwCpDLX0mYOkg=/http://ytlmg.net:8011/u/5934872/newcs2head.jpg">
+    <h2>EngineOwning for Counter-Strike 2</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration4">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Call of Duty: Modern Warfare II and DMZ (2022) -->
+  <div class="plan-card" id="item5" data-item="EngineOwning for Call of Duty: Modern Warfare II and DMZ (2022)">
+    <img src="https://proxy.engineowning.su/0,scKuyD6Zy7kKEujqzaVSXAvov0dfn-kAtWCaevkeHqLA=/http://ytlmg.net:8011/u/5934872/newmw2icon.jpg">
+    <h2>EngineOwning for Call of Duty: Modern Warfare II and DMZ (2022)</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration5">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Call of Duty: Modern Warfare (2019) -->
+  <div class="plan-card" id="item6" data-item="EngineOwning for Call of Duty: Modern Warfare (2019)">
+    <img src="https://proxy.engineowning.su/0,s2sDMFdXbzb9RRfbWzoSsUYik5lEHePUwn04lx3Sv9gw=/http://ytlmg.net:8011/u/5934872/newmw1icon.jpg">
+    <h2>EngineOwning for Call of Duty: Modern Warfare (2019)</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration6">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Call of Duty: Vanguard -->
+  <div class="plan-card" id="item7" data-item="EngineOwning for Call of Duty: Vanguard">
+    <img src="https://proxy.engineowning.su/0,sG7OJzHSpAbXm3NtQKkued0jn5ktdsMWGuwJddEaBQJM=/http://ytlmg.net:8011/u/5934872/newvanguardicon.jpg">
+    <h2>EngineOwning for Call of Duty: Vanguard</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration7">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Battlefield V -->
+  <div class="plan-card" id="item8" data-item="EngineOwning for Battlefield V">
+    <img src="https://proxy.engineowning.su/0,sykD7vmMIC8VHAidlNI1wXrgl7TwlqvjidRcnbmMCF-g=/http://ytlmg.net:8011/u/5934872/newbattlefieldvicon.jpg">
+    <h2>EngineOwning for Battlefield V</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration8">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Titanfall 2 -->
+  <div class="plan-card" id="item9" data-item="EngineOwning for Titanfall 2">
+    <img src="https://proxy.engineowning.su/0,sujuoiK0EPJh05pTxZu8zGf-eMun4fyrirFNvaJ_ka1E=/http://ytlmg.net:8011/u/5934872/newtitanfall2icon.jpg">
+    <h2>EngineOwning for Titanfall 2</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration9">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Call of Duty: Black Ops 3 -->
+  <div class="plan-card" id="item10" data-item="EngineOwning for Call of Duty: Black Ops 3">
+    <img src="https://proxy.engineowning.su/0,sqxSTrRtVlGvna7vgUXQkvTxlDfukAmdgaBN8IQFldj4=/http://ytlmg.net:8011/u/5934872/newblackops3icon.png">
+    <h2>EngineOwning for Call of Duty: Black Ops 3</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration10">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Call of Duty: Black Ops 2 -->
+  <div class="plan-card" id="item11" data-item="EngineOwning for Call of Duty: Black Ops 2">
+    <img src="https://proxy.engineowning.su/0,sbbXcbyhgpsPgRYUcLUl7UpoYdDkwBtpaI6FBDjQ0kMs=/http://ytlmg.net:8011/u/5934872/newblackops2icon.png">
+    <h2>EngineOwning for Call of Duty: Black Ops 2</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration11">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
+  </div>
+  
+  <!-- EngineOwning for Call of Duty: WW2 -->
+  <div class="plan-card" id="item12" data-item="EngineOwning for Call of Duty: WW2">
+    <img src="https://proxy.engineowning.su/0,sf9ZxZdpbP63ag9ZqrZNtDckp7ndsIzL7QEEpOEeVLsU=/http://ytlmg.net:8011/u/5934872/newww2icon.png">
+    <h2>EngineOwning for Call of Duty: WW2</h2>
+    <p><strong>Price:</strong></p>
+    <p><strong>3 Days:</strong> $7.00<br>
+       <strong>30 Days:</strong> $24.00<br>
+       <strong>90 Days:</strong> $45.00</p>
+    <p><strong>Custom Duration:</strong></p>
+    <select id="customDuration12">
+      <option value="3">3 Days</option>
+      <option value="30">30 Days</option>
+      <option value="90">90 Days</option>
+    </select>
+    <a href="javascript:void(0);" class="buy-button">Buy Menu</a>
   </div>
 
-<script>
-  // Data source for the rental plans
-  const menuPlans = [
-    {
-      name: "Battlefield 1",
-      image: "Images/bf1_logo.png",
-      features: "Full access to the Battlefield 1 mod menu for your rental period.",
-      prices: { "3": "$7.00", "30": "$24.00", "90": "$45.00" },
-    },
-    {
-      name: "Battlefield 3",
-      image: "Images/bf3_logo.png",
-      features: "Full access to the Battlefield 3 mod menu for your rental period.",
-      prices: { "3": "$7.00", "30": "$24.00", "90": "$45.00" },
-    },
-    // Add more games here following the same structure
-  ];
-
-  // Function to navigate to the payment page with selected item and duration
-  function goToPaymentPage(item, duration) {
-    if (duration) {
-      // Find the selected plan from the menuPlans array
-      const selectedPlan = menuPlans.find(plan => plan.name === item);
-
-      if (selectedPlan) {
-        // Get the price for the selected duration
-        const price = selectedPlan.prices[duration];
-
-        // Store values in localStorage
-        localStorage.setItem('selectedItem', item);
-        localStorage.setItem('selectedDuration', duration);
-        localStorage.setItem('selectedPrice', price);
-
-        // Redirect to Pay.html page
-        window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Add event listeners to the buy buttons
+  document.querySelectorAll('.buy-button').forEach(button => {
+    button.addEventListener('click', function() {
+      // Get the closest parent card (plan-card)
+      const card = this.closest('.plan-card');
+      
+      // Ensure the card element is found
+      if (!card) {
+        console.error("Card element not found.");
+        return;
       }
-    }
+
+      // Retrieve the item name from the card's data-item attribute
+      const itemName = card.getAttribute('data-item');
+      const itemID = card.id;  // Get the ID of the selected item (e.g., "item1")
+      
+      // Retrieve the select element for custom duration
+      const selectElement = card.querySelector('select');
+      
+      // Ensure the select element exists
+      if (!selectElement) {
+        console.error("Could not find the select element.");
+        return;
+      }
+      
+      // Get the selected duration from the select element
+      const duration = selectElement.value;
+      
+      // Retrieve the corresponding price based on the selected duration
+      let price = '';
+      if (duration === '3') {
+        price = '$7.00';
+      } else if (duration === '30') {
+        price = '$24.00';
+      } else if (duration === '90') {
+        price = '$45.00';
+      }
+
+      // Log data for debugging
+      console.log({ itemName, itemID, duration, price });
+
+      // Check if the necessary data is available
+      if (!itemName || !duration || !price) {
+        console.error("Failed to retrieve necessary data:", { itemName, duration, price });
+        return;
+      }
+
+      // Save selection to localStorage
+      saveSelection(itemID, itemName, duration, price);
+
+      // Redirect to the payment page
+      window.location.href = "PayEO.html";
+    });
+  });
+
+  // Function to save selection to localStorage
+  function saveSelection(itemID, itemName, duration, price) {
+    localStorage.setItem('selectedItemID', itemID); // Store item ID
+    localStorage.setItem('selectedItem', itemName);
+    localStorage.setItem('selectedDuration', duration);
+    localStorage.setItem('selectedPrice', price);
   }
-</script>
-</body>
-</html>
+});
+  </script>
+  </body>
+  </html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment System</title>
+  <link rel="icon" href="Images/HTG.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+      font-size: 2.5rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 img {
+      height: 40px;
+      margin-right: 15px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #1c1c1c;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .card {
+      padding: 20px;
+      background-color: #2a2a2a;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin: 0 0 15px;
+      color: #007bff;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .payment-form input, .payment-form select, .payment-form button {
+      width: calc(100% - 40px);
+      margin: 15px 20px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: #f0f0f0;
+      font-size: 1rem;
+    }
+
+    .payment-form input:focus, .payment-form select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .payment-form button {
+      background-color: #007bff;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .payment-form button:hover {
+      background-color: #0056b3;
+    }
+
+    .nav-buttons {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .nav-buttons button {
+      margin: 5px;
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    #overlay {
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    #overlay-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: #1c1c1c;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    #overlay-content h2 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    #overlay-content button {
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #overlay-content button:hover {
+      background-color: #0056b3;
+    }
+
+    .form-input-group {
+      margin-bottom: 20px;
+    }
+
+    .form-input-group input {
+      width: calc(100% - 40px);
+      margin: 15px 20px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: #f0f0f0;
+      font-size: 1rem;
+    }
+
+    .form-input-group input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .form-input-group label {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: #ccc;
+    }
+
+    .form-input-group small {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    .form-input-group button {
+      width: calc(100% - 40px);
+    }
+
+    /* Button fix */
+    .payment-form-button {
+      width: calc(100% - 40px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>
+      <img src="Images/HTG.png" alt="Logo">
+      Harley's Services - Payment System
+    </h1>
+
+    <div class="nav-buttons">
+      <button onclick="window.history.back()">Back</button>
+      <button onclick="window.location.href='index.html'">Go Home</button>
+      <button onclick="window.location.href='Rent.html'">Rent Menus</button>
+      <button onclick="window.location.href='Bot.html'">Rent Bot Hosting</button>
+    </div>
+
+    <p style="text-align: center; color: #ccc;">Please follow the instructions below to complete your payment.</p>
+
+    <!-- Selected Details Card (Updated for Price) -->
+    <div class="card">
+      <h3>Selected Details</h3>
+      <p>Item: <span id="item">Not selected</span></p>
+      <p>Duration: <span id="duration">Not selected</span></p>
+      <p><strong>Price: </strong><span id="price">Not selected</span></p>
+    </div>
+
+    <!-- User Information Card -->
+    <div class="card">
+      <h3>User Information</h3>
+      <form id="userInfoForm">
+        <div class="form-input-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+        </div>
+        <div class="form-input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+        </div>
+        <div class="form-input-group">
+          <label for="discord-username">Discord Username <small>(Optional)</small></label>
+          <input type="text" id="discord-username" name="discord-username" placeholder="Enter your Discord username (Optional)" oninput="checkLowercase()">
+        </div>
+        <div class="form-input-group">
+          <label for="forum-username">Forum Username <small>(Optional)</small></label>
+          <input type="text" id="forum-username" name="forum-username" placeholder="Enter your Forum username (e.g., harleytg.580268)" oninput="checkForumUsername()">
+        </div>
+        <button type="button" onclick="submitUserInfo()">Submit</button>
+      </form>
+    </div>
+
+    <!-- Payment Options -->
+    <div class="card">
+      <h3>Select Payment Method</h3>
+      <input type="radio" id="noneOption" name="paymentMethod" value="none" onclick="togglePaymentMethod()" checked>
+      <label for="noneOption">None</label>
+      <input type="radio" id="cashAppOption" name="paymentMethod" value="cashApp" onclick="togglePaymentMethod()">
+      <label for="cashAppOption">Cash App</label>
+      <input type="radio" id="koFiOption" name="paymentMethod" value="koFi" onclick="togglePaymentMethod()">
+      <label for="koFiOption">Ko-fi</label>
+    </div>
+
+    <!-- Cash App Payment Form -->
+    <div class="card payment-form" id="cashAppForm" style="display: none;">
+      <p>To verify your payment, please enter this <strong>Customer ID</strong> into your Cash App transaction note:</p>
+      <input type="text" id="customerId" readonly required>
+      <p>Please include this Customer ID when you make your payment. This helps us verify your transaction.</p>
+      <p>
+        <a href="https://cash.app/$HarleyTGO" style="color: #ccc;" target="_blank">Cashapp $HarleyTGO</a>
+      </p>
+      <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
+      <button id="payCompletedBtn" class="payment-form-button" onclick="unlockPaymentForm()">Pay Completed</button>
+    </div>
+
+    <!-- Ko-fi Payment Form -->
+    <div class="card payment-form" id="koFiForm" style="display: none;">
+      <h3>Support via Ko-fi</h3>
+      <p>If you prefer, you can make a one-time payment through Ko-fi:</p>
+      <iframe id='kofiframe' src='https://ko-fi.com/harleytg/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='harleytg'></iframe>
+    </div>
+
+    <!-- Payment details form (Initially hidden) -->
+    <div class="card payment-form" id="paymentDetails" style="display: none;">
+      <p>Enter your payment details below and press the button to continue:</p>
+      <div class="form-input-group">
+        <label for="paymentName">Name</label>
+        <input type="text" id="paymentName" name="paymentName" placeholder="Enter Your Name" required>
+      </div>
+      <div class="form-input-group">
+        <label for="paymentEmail">Email</label>
+        <input type="email" id="paymentEmail" name="paymentEmail" placeholder="Enter Your Email" required>
+      </div>
+      <div class="form-input-group">
+        <label for="cashAppUser">Cash App Username</label>
+        <input type="text" id="cashAppUser" name="cashAppUser" placeholder="Enter Cash App Username" required>
+      </div>
+      <div class="form-input-group">
+        <label for="transactionId">Transaction ID</label>
+        <input type="text" id="transactionId" name="transactionId" placeholder="Enter Transaction ID" required>
+      </div>
+      <div class="form-input-group">
+        <label for="paymentDiscordUsername">Discord Username <small>(Optional)</small></label>
+        <input type="text" id="paymentDiscordUsername" name="paymentDiscordUsername" placeholder="Enter your Discord username (Optional)" oninput="checkLowercase()">
+      </div>
+      <button type="button" onclick="submitTransaction()">Submit</button>
+    </div>
+
+  </div>
+
+  <div id="overlay">
+    <div id="overlay-content">
+      <h2>Order Complete</h2>
+      <button onclick="window.location.href='index.html'">Home</button>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve selected item, duration, and price from localStorage and display them
+    window.onload = function() {
+      let selectedItem = localStorage.getItem('selectedItem');
+      let selectedDuration = localStorage.getItem('selectedDuration');
+      let selectedPrice = localStorage.getItem('selectedPrice');
+
+      // Display the retrieved data in the HTML
+      document.getElementById('item').innerText = selectedItem || 'No Item Selected';
+      document.getElementById('duration').innerText = selectedDuration || 'Not selected';
+      document.getElementById('price').innerText = selectedPrice || 'Not selected';
+    };
+
+    // Function to generate a random Customer ID
+    function generateCustomerId() {
+      const customerId = Math.random().toString(36).substr(2, 8).toUpperCase();
+      document.getElementById('customerId').value = customerId;
+    }
+
+    // Automatically generate a Customer ID on page load
+    generateCustomerId();
+
+    // Unlock the payment details form when "Pay Completed" button is clicked
+    function unlockPaymentForm() {
+      document.getElementById('paymentDetails').style.display = 'block';
+      document.getElementById('payCompletedBtn').style.display = 'none';
+    }
+
+    async function submitUserInfo() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const discordUsername = document.getElementById('discord-username').value || 'N/A';
+      const forumUsername = document.getElementById('forum-username').value || 'N/A';
+      
+      // Get selected payment method and relevant details
+      let paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+      let paymentInfo = '';
+      let customerId = '';
+      let serviceType = 'No Service Selected';
+      let cashAppUser = '';
+      let transactionId = '';
+
+      if (paymentMethod === 'cashApp') {
+        paymentInfo = `Cash App Customer ID: ${document.getElementById('customerId').value}`;
+        customerId = document.getElementById('customerId').value;
+        cashAppUser = 'Your Cash App username here';
+        transactionId = 'Generated Transaction ID here';
+        serviceType = 'Cash App Payment';
+      } else if (paymentMethod === 'koFi') {
+        paymentInfo = 'Payment through Ko-fi';
+        serviceType = 'Ko-fi Support';
+      } else {
+        paymentInfo = 'No payment method selected';
+        serviceType = 'Free';
+      }
+
+      const userInfo = {
+        content: 'User Info and Payment Details',
+        embeds: [ {
+          title: `User Info for ${name}`,
+          fields: [
+            { name: 'Name', value: name },
+            { name: 'Email', value: email },
+            { name: 'Discord Username', value: discordUsername },
+            { name: 'Forum Username', value: forumUsername },
+            { name: 'Payment Method', value: paymentMethod },
+            { name: 'Payment Info', value: paymentInfo }
+          ]
+        }]
+      };
+
+      const paymentDetails = {
+        content: 'Payment Received',
+        embeds: [ {
+          title: `Payment Details for ${name}`,
+          fields: [
+            { name: 'Customer ID', value: customerId || 'N/A' },
+            { name: 'Service Type', value: serviceType },
+            { name: 'Name', value: name },
+            { name: 'Email', value: email },
+            { name: 'Cash App Username', value: cashAppUser || 'N/A' },
+            { name: 'Transaction ID', value: transactionId || 'N/A' },
+            { name: 'Discord Username', value: discordUsername || 'N/A' }
+          ]
+        }]
+      };
+
+      try {
+        // Send user info
+        await fetch('https://discord.com/api/webhooks/1331759874446459023/cLAWJbGUQ0iye7YKzPE1IOzxYRvGSmrreczw7go9It052zJLFfUmehx-tyXSU1hivaIg', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userInfo)
+        });
+
+        // Send payment details
+        await fetch('https://discord.com/api/webhooks/1331759874446459023/cLAWJbGUQ0iye7YKzPE1IOzxYRvGSmrreczw7go9It052zJLFfUmehx-tyXSU1hivaIg', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(paymentDetails)
+        });
+
+        alert('User info and payment details submitted successfully!');
+      } catch (error) {
+        alert('An error occurred while submitting user info and payment details.');
+      }
+    }
+
+    // Toggle between payment methods
+    function togglePaymentMethod() {
+      const cashAppForm = document.getElementById('cashAppForm');
+      const koFiForm = document.getElementById('koFiForm');
+      const paymentDetails = document.getElementById('paymentDetails');
+
+      if (document.getElementById('cashAppOption').checked) {
+        cashAppForm.style.display = 'block';
+        koFiForm.style.display = 'none';
+        paymentDetails.style.display = 'none';
+      } else if (document.getElementById('koFiOption').checked) {
+        koFiForm.style.display = 'block';
+        cashAppForm.style.display = 'none';
+        paymentDetails.style.display = 'none';
+      } else {
+        cashAppForm.style.display = 'none';
+        koFiForm.style.display = 'none';
+        paymentDetails.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
