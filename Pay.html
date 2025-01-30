@@ -220,35 +220,38 @@
 
 <script>
   // Retrieve selected item and price from localStorage
-  let selectedItem = localStorage.getItem('selectedItem');
-  let selectedDuration = localStorage.getItem('selectedDuration');
-  let selectedPrice = localStorage.getItem('selectedPrice');
+let selectedItem = localStorage.getItem('selectedItem');
+let selectedDuration = localStorage.getItem('selectedDuration');
+let selectedPrice = parseFloat(localStorage.getItem('selectedPrice'));  // Ensure it's a number
 
-  document.getElementById('item').innerText = selectedItem || 'Starter+';
-  document.getElementById('duration').innerText = selectedDuration || 'Weekly';
-  priceWithTaxElement.innerText = `Price with Tax: $${totalPrice.toFixed(2)} (Tax: $${tax.toFixed(2)})`;
+document.getElementById('item').innerText = selectedItem || 'Starter+';
+document.getElementById('duration').innerText = selectedDuration || 'Monthly';
+document.getElementById('price').innerText = selectedPrice ? `$${selectedPrice.toFixed(2)}` : 'Not selected';
 
-
-  // Function to calculate the sales tax
-  function calculateTax(price) {
+// Function to calculate the sales tax
+function calculateTax(price) {
     const taxRate = 0.0885; // 8.85% sales tax
     return price * taxRate;
-  }
+}
 
-  // Function to update the price with tax display
-  function updatePriceDisplay() {
+// Function to update the price and price with tax display
+function updatePriceDisplay() {
     const priceWithTaxElement = document.getElementById('priceWithTax');
+    
     if (selectedPrice && !isNaN(selectedPrice)) {
-      const tax = calculateTax(selectedPrice);
-      const totalPrice = selectedPrice + tax;
-      priceWithTaxElement.innerText = `Price with Tax: $${totalPrice.toFixed(2)} (Tax: $${tax.toFixed(2)})`;
-    } else {
-      priceWithTaxElement.innerText = 'Not selected';
-    }
-  }
+        const tax = calculateTax(selectedPrice);
+        const totalPrice = selectedPrice + tax;
 
-  // Call the function to update the price display when the page loads
-  window.onload = updatePriceDisplay;
+        // Update the price with tax display
+        priceWithTaxElement.innerText = `Price with Tax: $${totalPrice.toFixed(2)} (Tax: $${tax.toFixed(2)})`;
+    } else {
+        priceWithTaxElement.innerText = 'Not selected';
+    }
+}
+
+// Call the function to update the price display when the page loads
+window.onload = updatePriceDisplay;
+
 
   // Function to generate a random Customer ID
   function generateCustomerId() {
