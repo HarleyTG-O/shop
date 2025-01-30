@@ -44,28 +44,31 @@
       color: #007bff;
     }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      color: #ccc;
-      font-size: 1rem;
-    }
-
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #444;
-      border-radius: 5px;
+    .form-container {
       background-color: #2a2a2a;
-      color: #f0f0f0;
+      border-radius: 10px;
+      padding: 20px;
     }
 
-    .form-group input[type="file"] {
-      padding: 5px;
+    label {
+      color: #ccc;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      background-color: #444;
+      color: #ccc;
+      border: 1px solid #555;
+      border-radius: 5px;
+    }
+
+    input[type="file"] {
+      background-color: transparent;
+      border: none;
     }
 
     .nav-buttons {
@@ -88,10 +91,14 @@
       background-color: #0056b3;
     }
 
-    .form-group textarea {
-      height: 150px;
-      resize: none;
+    .submit-btn {
+      background-color: #28a745;
     }
+
+    .submit-btn:hover {
+      background-color: #218838;
+    }
+
   </style>
 </head>
 <body>
@@ -108,68 +115,40 @@
       <button onclick="window.location.href='index.html'">Go Home</button>
     </div>
 
-    <div class="section">
-      <h3>Frequently Asked Questions (FAQs)</h3>
-      <ul>
-        <li><strong>How do I make a payment?</strong> - Visit our Payment System page and follow the instructions.</li>
-        <li><strong>What payment methods do you accept?</strong> - We accept Cash App and Ko-fi.</li>
-        <li><strong>How do I contact support?</strong> - See the Contact Support section below.</li>
-        <li><strong>What if I encounter a problem with my order?</strong> - Reach out to support for assistance.</li>
-      </ul>
-    </div>
-
-    <div class="section">
+    <div class="section form-container">
       <h3>Support Form</h3>
       <form id="supportForm">
-        
-        <div class="form-group">
-          <label for="fullName">Full Name:</label>
-          <input type="text" id="fullName" name="fullName" placeholder="Your Name" required>
-        </div>
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
 
-        <div class="form-group">
-          <label for="email">Email Address:</label>
-          <input type="email" id="email" name="email" placeholder="Your Email" required>
-        </div>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
 
-        <div class="form-group">
-          <label for="discord">Discord Username (optional):</label>
-          <input type="text" id="discord" name="discord" placeholder="Your Discord Handle">
-        </div>
+        <label for="discordUsername">Discord Username (optional):</label>
+        <input type="text" id="discordUsername" name="discordUsername">
 
-        <div class="form-group">
-          <label for="issueType">Issue Type:</label>
-          <select id="issueType" name="issueType" required>
-            <option value="technical">Technical Issue</option>
-            <option value="billing">Billing/Account Issue</option>
-            <option value="general">General Inquiry</option>
-            <option value="other">Other (please specify)</option>
-          </select>
-        </div>
+        <label for="issueType">Issue Type:</label>
+        <select id="issueType" name="issueType" required>
+          <option value="Technical Issue">Technical Issue</option>
+          <option value="Billing/Account Issue">Billing/Account Issue</option>
+          <option value="General Inquiry">General Inquiry</option>
+          <option value="Other">Other (please specify)</option>
+        </select>
 
-        <div class="form-group">
-          <label for="description">Description of Issue/Inquiry:</label>
-          <textarea id="description" name="description" placeholder="Please describe the problem or your question" required></textarea>
-        </div>
+        <label for="description">Description of Issue/Inquiry:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
 
-        <div class="form-group">
-          <label for="contactMethod">Preferred Contact Method:</label>
-          <select id="contactMethod" name="contactMethod" required>
-            <option value="email">Email</option>
-            <option value="discord">Discord</option>
-            <option value="liveChat">Live Chat</option>
-          </select>
-        </div>
+        <label for="contactMethod">Preferred Contact Method:</label>
+        <select id="contactMethod" name="contactMethod" required>
+          <option value="Email">Email</option>
+          <option value="Discord">Discord</option>
+          <option value="Live Chat">Live Chat</option>
+        </select>
 
-        <div class="form-group">
-          <label for="file">Attach any relevant files (optional):</label>
-          <input type="file" id="file" name="file">
-        </div>
+        <label for="attachment">Attach any relevant files (optional):</label>
+        <input type="file" id="attachment" name="attachment">
 
-        <div class="nav-buttons">
-          <button type="submit">Submit Request</button>
-        </div>
-
+        <button type="submit" class="submit-btn">Submit Request</button>
       </form>
     </div>
 
@@ -186,43 +165,76 @@
   </div>
 
   <script>
-    document.getElementById('supportForm').addEventListener('submit', function(event) {
+    document.getElementById("supportForm").addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const webhookUrl = 'https://discord.com/api/webhooks/1334542591043047477/8JC2_I3pjpioFh3PX2zfwKkNu7zdgWd65tjHFHu_f3k-DGvmIWp-DW9aA1-vN5JGl_gV';
-      const formData = new FormData(this);
+      // Generate a unique incident ID (only random number)
+      const incidentId = Math.floor(Math.random() * 10000);
 
-      const data = {
-        username: 'Harley Support',
-        embeds: [
-          {
-            title: 'Support Request',
-            fields: [
-              { name: 'Full Name', value: formData.get('fullName') },
-              { name: 'Email Address', value: formData.get('email') },
-              { name: 'Discord Username', value: formData.get('discord') || 'Not Provided' },
-              { name: 'Issue Type', value: formData.get('issueType') },
-              { name: 'Description', value: formData.get('description') },
-              { name: 'Preferred Contact', value: formData.get('contactMethod') },
-            ],
-            color: 3066993,
-          },
-        ],
-      };
+      const formData = new FormData(event.target);
+      const email = formData.get("email");
+      const name = formData.get("fullName");
+      const issueType = formData.get("issueType");
+      const description = formData.get("description");
+      const contactMethod = formData.get("contactMethod");
+      const discordUsername = formData.get("discordUsername");
+      const attachment = formData.get("attachment");
 
-      fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert('Support request submitted successfully.');
-      })
-      .catch(error => {
-        alert('There was an error submitting your request. Please try again later.');
-        console.error('Error:', error);
-      });
+      const webhookUrl = "https://discord.com/api/webhooks/1334542591043047477/8JC2_I3pjpioFh3PX2zfwKkNu7zdgWd65tjHFHu_f3k-DGvmIWp-DW9aA1-vN5JGl_gV";
+
+      try {
+        const payload = {
+          username: "Harley's Services - Support Form",
+          content: "<@&1330556193780924528>", // Mention the role using its ID
+          embeds: [
+            {
+              title: "New Support Request",
+              fields: [
+                { name: "Incident ID", value: incidentId, inline: true },
+                { name: "Email", value: email, inline: true },
+                { name: "Name", value: name, inline: true },
+                { name: "Issue Type", value: issueType, inline: true },
+                { name: "Description", value: description, inline: false },
+                { name: "Preferred Contact Method", value: contactMethod, inline: true },
+                { name: "Discord Username", value: discordUsername || "N/A", inline: true }
+              ],
+              footer: { text: `Incident ID: ${incidentId}` },
+              timestamp: new Date().toISOString()
+            }
+          ]
+        };
+
+        // Send the request
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to submit request");
+        }
+
+        // Send file if available
+        if (attachment) {
+          const fileFormData = new FormData();
+          fileFormData.append("file", attachment);
+          const fileUploadResponse = await fetch(webhookUrl, {
+            method: "POST",
+            body: fileFormData
+          });
+
+          if (!fileUploadResponse.ok) {
+            console.error("File upload failed");
+          }
+        }
+
+        alert(`Your request has been submitted successfully. Incident ID: ${incidentId}`);
+        event.target.reset();
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again later.");
+      }
     });
   </script>
 
