@@ -221,10 +221,28 @@
   <script>
     // Retrieve selected item and price from localStorage and display them
     let selectedItem = localStorage.getItem('selectedItem');
-    let selectedPrice = localStorage.getItem('selectedPrice');
+    let selectedPrice = parseFloat(localStorage.getItem('selectedPrice'));
 
-    document.getElementById('item').innerText = selectedItem || 'No Item Selected';
-    document.getElementById('price').innerText = selectedPrice || 'Not selected';
+    // Function to calculate the sales tax
+    function calculateTax(price) {
+        const taxRate = 0.0885; // 8.85% sales tax
+        return price * taxRate;
+    }
+
+    // Function to update the price display with tax
+    function updatePriceDisplay() {
+        if (selectedPrice) {
+            const tax = calculateTax(selectedPrice);
+            const totalPrice = selectedPrice + tax;
+            document.getElementById('item').innerText = selectedItem || 'No Item Selected';
+            document.getElementById('price').innerText = `Price: $${selectedPrice.toFixed(2)} (Tax: $${tax.toFixed(2)} | Total: $${totalPrice.toFixed(2)})`;
+        } else {
+            document.getElementById('price').innerText = 'Not selected';
+        }
+    }
+
+    // Call the function to update the price display when the page loads
+    updatePriceDisplay();
 
     // Function to generate a random Customer ID
     function generateCustomerId() {
@@ -321,7 +339,8 @@
         input.setCustomValidity('');
       }
     }
-  </script>
+</script>
+
 
 </body>
 </html>
