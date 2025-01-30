@@ -198,27 +198,16 @@
     },
   ];
 
-  // Function to navigate to the payment page with selected item and duration
-  function goToPaymentPage(item, duration) {
-    if (duration) {
-      // Find the selected plan from the menuPlans array
-      const selectedPlan = menuPlans.find(plan => plan.name === item);
+    // Function to navigate to the payment page with selected item and duration
+    function goToPaymentPage(item, duration) {
+      // Store values in localStorage
+      localStorage.setItem('selectedItem', item);
+      localStorage.setItem('selectedDuration', duration);
 
-      if (selectedPlan) {
-        // Get the price for the selected duration
-        const price = selectedPlan.prices[duration];
-
-        // Store values in localStorage
-        localStorage.setItem('selectedItem', item);
-        localStorage.setItem('selectedDuration', duration);
-        localStorage.setItem('selectedPrice', price);
-
-        // Redirect to Pay.html page
-        window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
-      }
+      // Redirect to Pay.html page
+      window.location.href = "Pay.html";  // Ensure Pay.html is in the same folder or provide the correct path
     }
-  }
-</script>
+  </script>
 
 </body>
 </html>
