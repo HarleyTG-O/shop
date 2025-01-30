@@ -226,6 +226,8 @@
 
   document.getElementById('item').innerText = selectedItem || 'Starter+';
   document.getElementById('duration').innerText = selectedDuration || 'Weekly';
+  priceWithTaxElement.innerText = `Price with Tax: $${totalPrice.toFixed(2)} (Tax: $${tax.toFixed(2)})`;
+
 
   // Function to calculate the sales tax
   function calculateTax(price) {
