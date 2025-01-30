@@ -23,7 +23,7 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 40px auto;
       padding: 20px;
       background-color: #1c1c1c;
@@ -31,20 +31,26 @@
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
     }
 
-    .section-gallery {
+    .service-gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
-      margin-top: 40px;
+      grid-auto-rows: auto;
+      justify-items: center;
     }
 
     .service-card {
       background-color: #222;
       border: 1px solid #444;
       border-radius: 10px;
-      padding: 20px;
+      padding: 15px;
+      width: 100%;
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .service-card:hover {
@@ -52,16 +58,23 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
     }
 
-    .service-card h2 {
-      font-size: 1.8rem;
+    .service-card img {
+      max-width: 100%;
+      height: auto;
       margin-bottom: 15px;
+      border-radius: 5px;
+    }
+
+    .service-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
       color: #00c2ed;
     }
 
     .service-card p {
       font-size: 1rem;
       color: #ccc;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .service-card a {
@@ -73,16 +86,32 @@
       text-decoration: none;
       font-size: 1rem;
       transition: background-color 0.3s ease;
+      margin-top: auto;
     }
 
     .service-card a:hover {
       background-color: #0056b3;
     }
 
-    @media (max-width: 768px) {
-      .section-gallery {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
+    .nav-buttons {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .nav-buttons button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
@@ -97,34 +126,54 @@
       Explore our Hosting and Rental Services.
     </p>
 
-    <div class="section-gallery">
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <button onclick="window.history.back()">Back</button>
+      <button onclick="window.location.href='index.html'">Go Home</button>
+      <button onclick="window.location.href='Rent.html'">Rent Menus</button>
+      <button onclick="window.location.href='Bot.html'">Buy Bot Hosting</button>
+      <button onclick="window.location.href='Resell.html'">Reselling</button>
+    </div>
+
+    <!-- Services Gallery -->
+    <div class="service-gallery">
+      <!-- Discord Server -->
       <div class="service-card">
+        <img src="Images/discord.png" alt="Discord Server">
         <h2>Discord Server</h2>
-        <p>For Support and More</p>
-        <a href="https://discord.gg/mpQvUSmW2s">Join Our Discord Server</a>
+        <p>Join our Discord for support and more.</p>
+        <a href="https://discord.gg/mpQvUSmW2s">Join Now</a>
       </div>
 
+      <!-- Help and Support -->
       <div class="service-card">
+        <img src="Images/help.png" alt="Help and Support">
         <h2>Help and Support</h2>
-        <p>For Support and More</p>
-        <a href="Help.html">View Help</a>
+        <p>Need help? Check out our support page.</p>
+        <a href="Help.html">Get Support</a>
       </div>
 
+      <!-- Bot Hosting -->
       <div class="service-card">
+        <img src="Images/bot.png" alt="Bot Hosting">
         <h2>Bot Hosting</h2>
-        <p>Host your bots with ease. Reliable, fast, and always available.</p>
-        <a href="Bot.html">View Bot Hosting Plans</a>
+        <p>Reliable bot hosting solutions.</p>
+        <a href="Bot.html">View Hosting Plans</a>
       </div>
 
+      <!-- Renting Menus -->
       <div class="service-card">
+        <img src="Images/rent.png" alt="Renting Menus">
         <h2>Renting Menus</h2>
-        <p>Our Renting Menus For GTA And Red Dead Online/Story Mode</p>
-        <a href="Rent.html">View Rental - Cheat Menus</a>
+        <p>Our GTA & RDR Online/Story Mode rentals.</p>
+        <a href="Rent.html">View Rental Menus</a>
       </div>
 
+      <!-- Reselling -->
       <div class="service-card">
+        <img src="Images/resell.png" alt="Reselling">
         <h2>Reselling</h2>
-        <p>Reselling Menus for all kinds of games</p>
+        <p>Reselling game menus at the best prices.</p>
         <a href="Resell.html">View Reselling</a>
       </div>
     </div>
@@ -132,3 +181,4 @@
 
 </body>
 </html>
+
