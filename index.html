@@ -36,7 +36,7 @@
     .service-gallery {
       display: grid;
       grid-template-columns: repeat(2, 1fr); /* 2 columns */
-      gap: 20px;
+      gap: 15px; /* Reduced gap between items */
       padding: 10px;
       justify-items: center;
     }
@@ -45,7 +45,7 @@
       background-color: #222;
       border: 1px solid #444;
       border-radius: 10px;
-      padding: 15px;
+      padding: 12px; /* Reduced padding inside cards */
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       box-sizing: border-box;
@@ -53,7 +53,7 @@
       flex-direction: column;
       justify-content: space-between;
       width: 100%; /* Ensure the cards fill the grid column */
-      max-width: 250px; /* Limit the max width of each card */
+      max-width: 220px; /* Reduce max width to make cards closer */
     }
 
     .service-card:hover {
@@ -63,32 +63,32 @@
 
     .service-card img {
       width: 100%;
-      max-height: 120px; /* Adjust the height to prevent overlapping */
+      max-height: 100px; /* Reduced height of images */
       object-fit: contain; /* Ensures images fit without cropping */
-      margin-bottom: 10px;
+      margin-bottom: 8px; /* Reduced space below images */
       border-radius: 5px;
     }
 
     .service-card h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
+      font-size: 1.4rem; /* Reduced font size for headings */
+      margin-bottom: 8px; /* Reduced space below the heading */
       color: #00c2ed;
     }
 
     .service-card p {
       font-size: 1rem;
       color: #ccc;
-      margin-bottom: 15px;
+      margin-bottom: 12px; /* Reduced space below the paragraph */
     }
 
     .service-card a {
       display: inline-block;
-      padding: 10px 15px;
+      padding: 8px 12px; /* Reduced padding for buttons */
       background-color: #007bff;
       color: white;
       border-radius: 8px;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 0.9rem; /* Smaller font size for buttons */
       transition: background-color 0.3s ease;
       margin-top: auto;
     }
@@ -116,6 +116,13 @@
 
     .nav-buttons button:hover {
       background-color: #0056b3;
+    }
+
+    /* Media Query for smaller screens */
+    @media (max-width: 768px) {
+      .service-gallery {
+        grid-template-columns: 1fr; /* Stack all items in one column */
+      }
     }
   </style>
 </head>
@@ -176,4 +183,3 @@
 
 </body>
 </html>
-
