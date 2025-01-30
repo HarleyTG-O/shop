@@ -218,13 +218,13 @@
     </div>
   </div>
 
-     <script>
-    // Retrieve selected item and duration from localStorage and display them
+  <script>
+    // Retrieve selected item and price from localStorage and display them
     let selectedItem = localStorage.getItem('selectedItem');
-    let selectedDuration = localStorage.getItem('selectedDuration');
+    let selectedPrice = localStorage.getItem('selectedPrice');
 
-    document.getElementById('item').innerText = selectedItem || 'Not selected';  // Display selected item
-    document.getElementById('duration').innerText = selectedDuration || 'Not selected';  // Display selected duration
+    document.getElementById('item').innerText = selectedItem || 'No Item Selected';
+    document.getElementById('price').innerText = selectedPrice || 'Not selected';
 
     // Function to generate a random Customer ID
     function generateCustomerId() {
@@ -237,8 +237,8 @@
 
     // Unlock the payment details form when "Pay Completed" button is clicked
     function unlockPaymentForm() {
-      document.getElementById('paymentDetails').style.display = 'block';  // Show payment details section
-      document.getElementById('payCompletedBtn').style.display = 'none';  // Hide "Pay Completed" button
+      document.getElementById('paymentDetails').style.display = 'block';
+      document.getElementById('payCompletedBtn').style.display = 'none';
     }
 
     // Function to submit payment details
@@ -248,20 +248,18 @@
       const email = document.getElementById('email').value;
       const cashAppUser = document.getElementById('cashAppUser').value;
       const transactionId = document.getElementById('transactionId').value;
-
-      // Use selectedItem and selectedDuration instead of serviceType
-      const serviceType = `Item: ${selectedItem}, Duration: ${selectedDuration}`;
+      const discordUsername = document.getElementById('discord-username').value;
+      const serviceType = `Item: ${document.getElementById('item').innerText}, Duration: ${document.getElementById('duration').innerText}`;
 
       if (!customerId || !name || !email || !cashAppUser || !transactionId || !serviceType) {
         alert('Please fill out all fields.');
         return;
       }
 
-
       const paymentDetails = {
         content: 'Payment Received',
         embeds: [{
-          title: Payment Details for ${name},
+          title: `Payment Details for ${name}`,
           fields: [
             { name: 'Customer ID', value: customerId },
             { name: 'Service Type', value: serviceType },
