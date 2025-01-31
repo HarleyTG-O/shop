@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment System</title>
+  <link rel="icon" href="Images/HTG.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .card {
+      padding: 20px;
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: #007bff;
+    }
+
+    .payment-form input, .payment-form select, .payment-form button {
+      width: calc(100% - 40px);
+      margin: 10px 20px;
+    }
+
+    .payment-form button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .payment-form button:hover {
+      background-color: #0056b3;
+    }
+
+    .nav-buttons {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .nav-buttons button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    #overlay {
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    #overlay-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: #1c1c1c;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    #overlay-content h2 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    #overlay-content button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    #overlay-content button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>
+      <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+      Harley's Services - Payment System
+    </h1>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <button onclick="window.history.back()">Back</button>
+      <button onclick="window.location.href='index.html'">Go Home</button>
+      <button onclick="window.location.href='Rent.html'">Rent Menus</button>
+      <button onclick="window.location.href='Bot.html'">Rent Bot Hosting</button>
+    </div>
+
+    <p style="text-align: center; color: #ccc;">Please follow the instructions below to complete your payment.</p>
+
+    <div class="card">
+      <h3>Cart Items</h3>
+      <div id="selectedItems"></div>
+      <br><br>
+      <div><strong><span id="totalPrice">0.00</span></strong></div>
+    </div>
+
+    <!-- Payment Options -->
+    <div class="card">
+      <h3>Select Payment Method</h3>
+      <input type="radio" id="noneOption" name="paymentMethod" value="none" onclick="togglePaymentMethod()" checked>
+      <label for="noneOption">None</label>
+      <input type="radio" id="cashAppOption" name="paymentMethod" value="cashApp" onclick="togglePaymentMethod()">
+      <label for="cashAppOption">Cash App</label>
+      <input type="radio" id="koFiOption" name="paymentMethod" value="koFi" onclick="togglePaymentMethod()">
+      <label for="koFiOption">Ko-fi</label>
+    </div>
+
+    <!-- Cash App Payment Form -->
+    <div class="card payment-form" id="cashAppForm" style="display: none;">
+      <p>To verify your payment, please enter this <strong>Customer ID</strong> into your Cash App transaction note:</p>
+      <input type="text" id="customerId" readonly required>
+      <p>Please include this Customer ID when you make your payment. This helps us verify your transaction.</p>
+      <p>
+        <a href="https://cash.app/$HarleyTGO" style="color: #ccc;" target="_blank">Cashapp $HarleyTGO</a>
+      </p>
+      <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
+      <button id="payCompletedBtn" class="payment-form-button" onclick="unlockPaymentForm()">Pay Completed</button>
+    </div>
+
+    <!-- Ko-fi Payment Form -->
+    <div class="card payment-form" id="koFiForm" style="display: none;">
+      <h3>Support via Ko-fi</h3>
+      <p>If you prefer, you can make a one-time payment through Ko-fi:</p>
+      <iframe id='kofiframe' src='https://ko-fi.com/harleytg/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='harleytg'></iframe>
+    </div>
+
+    <!-- Payment details form (Initially hidden) -->
+    <div class="card payment-form" id="paymentDetails" style="display: none;">
+      <p>Enter your payment details below and press the button to continue:</p>
+      <input type="text" id="name" placeholder="Enter Your Name" required>
+      <input type="email" id="email" placeholder="Enter Your Email" required>
+      <input type="text" id="cashAppUser" placeholder="Enter Cash App Username" required>
+      <input type="text" id="transactionId" placeholder="Enter Transaction ID" required>
+
+      <!-- Add space between sections -->
+      <br><br>
+
+      <!-- Discord Username (Optional) -->
+      <label for="discord-username">Discord Username <small>(Optional)</small></label>
+      <input type="text" id="discord-username" name="discord-username" placeholder="Enter your Discord username (Optional)" oninput="checkLowercase()">
+      <strong>Note:</strong> Please ensure the case of your username is accurate. (e.g., Discord Usernames are all lowercase).
+
+      <!-- Add space between sections -->
+      <br><br>
+
+      <button type="button" onclick="submitTransaction()">Submit</button>
+    </div>
+
+  </div>
+
+  <div id="overlay">
+    <div id="overlay-content">
+      <h2>Order Complete</h2>
+      <button onclick="window.location.href='index.html'">Home</button>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function() {
+      let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const totalPriceDiv = document.getElementById('totalPrice');
+      const selectedItemsDiv = document.getElementById('selectedItems');
+
+      // Ensure to display items and total price
+      if (cartItems.length > 0) {
+        selectedItemsDiv.innerHTML = ''; // Clear any previous content
+        cartItems.forEach(item => {
+          const itemDiv = document.createElement('div');
+          itemDiv.innerText = `${item.name} - $${item.price.toFixed(2)}`;
+          selectedItemsDiv.appendChild(itemDiv);
+        });
+        totalPriceDiv.innerText = `Total: $${cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)}`;
+      } else {
+        selectedItemsDiv.innerText = 'No Item Selected';
+        totalPriceDiv.innerText = 'Not selected';
+      }
+    });
+
+    // Function to generate a random Customer ID
+    function generateCustomerId() {
+      const customerId = Math.random().toString(36).substr(2, 8).toUpperCase();
+      document.getElementById('customerId').value = customerId;
+    }
+
+    // Automatically generate a Customer ID on page load
+    generateCustomerId();
+
+    // Unlock the payment details form when "Pay Completed" button is clicked
+    function unlockPaymentForm() {
+      document.getElementById('paymentDetails').style.display = 'block';
+      document.getElementById('payCompletedBtn').style.display = 'none';
+    }
+
+    // Function to submit payment details
+    async function submitTransaction() {
+      const customerId = document.getElementById('customerId').value;
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const cashAppUser = document.getElementById('cashAppUser').value;
+      const transactionId = document.getElementById('transactionId').value;
+      const discordUsername = document.getElementById('discord-username').value;
+      const serviceType = `Item: ${document.getElementById('item').innerText}, Duration: ${document.getElementById('duration').innerText}`;
+
+      if (!customerId || !name || !email || !cashAppUser || !transactionId || !serviceType) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const paymentDetails = {
+        content: 'Payment Received',
+        embeds: [{
+          title: `Payment Details for ${name}`,
+          fields: [
+            { name: 'Customer ID', value: customerId },
+            { name: 'Service Type', value: serviceType },
+            { name: 'Name', value: name },
+            { name: 'Email', value: email },
+            { name: 'Cash App Username', value: cashAppUser },
+            { name: 'Transaction ID', value: transactionId },
+            { name: 'Discord Username', value: discordUsername || 'N/A' }
+          ]
+        }]
+      };
+
+      try {
+        const response = await fetch('https://discord.com/api/webhooks/1331759874446459023/cLAWJbGUQ0iye7YKzPE1IOzxYRvGSmrreczw7go9It052zJLFfUmehx-tyXSU1hivaIg', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(paymentDetails)
+        });
+
+        document.getElementById('overlay').style.display = 'block';
+
+      } catch (error) {
+        alert('An error occurred while sending your payment details. Please try again later.');
+      }
+    }
+
+    // Toggle between payment methods
+    function togglePaymentMethod() {
+      const cashAppForm = document.getElementById('cashAppForm');
+      const koFiForm = document.getElementById('koFiForm');
+      const paymentDetails = document.getElementById('paymentDetails');
+
+      if (document.getElementById('cashAppOption').checked) {
+        cashAppForm.style.display = 'block';
+        koFiForm.style.display = 'none';
+        paymentDetails.style.display = 'none';
+      } else if (document.getElementById('koFiOption').checked) {
+        cashAppForm.style.display = 'none';
+        koFiForm.style.display = 'block';
+        paymentDetails.style.display = 'none';
+      } else {
+        cashAppForm.style.display = 'none';
+        koFiForm.style.display = 'none';
+        paymentDetails.style.display = 'none';
+      }
+    }
+
+    // Check if Discord username is lowercase
+    function checkLowercase() {
+      const input = document.getElementById('discord-username');
+      const value = input.value;
+      const isLowercase = /^[a-z]+$/.test(value); // Regular expression to check if the string is all lowercase
+
+      if (!isLowercase) {
+        input.setCustomValidity('Username must be all lowercase letters.');
+      } else {
+        input.setCustomValidity('');
+      }
+    }
+  </script>
+
+</body>
+</html>

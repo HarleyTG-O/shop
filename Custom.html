@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harley's Custom Item Page</title>
+  <link rel="icon" href="Images/HTG.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-top: 20px;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Flexbox layout for form and cart */
+    .form-cart-wrapper {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* Form Section */
+    .form-section {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 70%; /* Landscape card for form */
+    }
+
+    /* Cart Section */
+    .cart-section {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 28%; /* Smaller vertical card for cart */
+    }
+
+    h2 {
+      color: #00c2ed;
+      font-size: 1.5rem;
+    }
+
+    /* Form Inputs */
+    .form input, .form select, .form button, .form textarea {
+      width: calc(100% - 40px);
+      margin: 10px 20px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: #f0f0f0;
+      font-size: 1rem;
+    }
+
+    .form button {
+      background-color: #007bff;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .form button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Cart Items */
+    .cart-item {
+      background-color: #444;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-item button {
+      background-color: #dc3545;
+      padding: 8px 16px;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .cart-item button:hover {
+      background-color: #c82333;
+    }
+
+    .nav-buttons {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .nav-buttons button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Cart Total */
+    .cart-total {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Buttons */
+    .submit-btn, .cart-checkout-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover, .cart-checkout-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+      .form-cart-wrapper {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .form-section, .cart-section {
+        width: 100%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>
+      <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+      Harley's Custom Item System
+    </h1>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <button onclick="window.history.back()">Back</button>
+      <button onclick="window.location.href='index.html'">Go Home</button>
+      <button onclick="window.location.href='Rent.html'">Rent Menus</button>
+      <button onclick="window.location.href='Bot.html'">Buy Bot Hosting</button>
+      <button onclick="window.location.href='Resell.html'">Reselling</button>
+    </div>
+
+    <br><br>
+
+    <!-- Flexbox wrapper for form and cart -->
+    <div class="form-cart-wrapper">
+      <!-- Form Section -->
+      <div class="form-section">
+        <h2>Add Custom Item</h2>
+        <form id="customItemForm" class="form">
+          <label for="itemName">Item Name</label>
+          <input type="text" id="itemName" name="itemName" placeholder="Enter item name" required>
+
+          <label for="itemPrice">Price (USD)</label>
+          <input type="number" id="itemPrice" name="itemPrice" placeholder="Enter item price" required>
+
+          <button type="submit" class="submit-btn">Add Item</button>
+        </form>
+      </div>
+
+      <!-- Cart Section -->
+      <div class="cart-section" id="cartCard">
+        <h2>Your Cart</h2>
+        <div id="cartItems"></div>
+
+        <div id="cartTotal" class="cart-total">Total: $0.00</div>
+
+        <br><br>
+
+        <button onclick="checkout()" class="cart-checkout-btn">Checkout</button>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+  
+    // Adding custom item to cart
+    document.getElementById('customItemForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+  
+      const itemName = document.getElementById('itemName').value;
+      const itemPrice = parseFloat(document.getElementById('itemPrice').value);
+  
+      // Validation checks
+      if (!itemName || !itemPrice || isNaN(itemPrice)) {
+        alert("Please fill out all required fields correctly.");
+        return;
+      }
+  
+      const newItem = { itemName, itemPrice };
+  
+      // Add item to cart and display updated cart
+      cart.push(newItem);
+      displayCart();
+  
+      // Reset form after adding item
+      document.getElementById('customItemForm').reset();
+    });
+  
+    // Function to display items in cart
+    function displayCart() {
+      const cartContainer = document.getElementById('cartItems');
+      cartContainer.innerHTML = ''; // Clear existing cart items
+  
+      let total = 0;
+  
+      // Loop through cart and create item display
+      cart.forEach((item, index) => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+          <strong>${item.itemName}</strong> - $${item.itemPrice.toFixed(2)}
+          <button onclick="removeItem(${index})">Remove</button>
+        `;
+        cartContainer.appendChild(cartItem);
+        total += item.itemPrice;
+      });
+  
+      // Display total price
+      document.getElementById('cartTotal').innerHTML = `Total: $${total.toFixed(2)}`;
+    }
+
+    // Function to remove item from cart
+    function removeItem(index) {
+      cart.splice(index, 1);
+      displayCart();
+    }
+  
+    function checkout() {
+      console.log("Checkout button clicked!");
+  
+      if (cart.length === 0) {
+        alert("Your cart is empty. Please add items to the cart before proceeding.");
+        return;
+      }
+  
+      console.log("Proceeding to checkout...");
+  
+      // Reduce cart size for storage
+      const reducedCart = cart.map(item => ({ name: item.itemName, price: item.itemPrice }));
+  
+      console.log("Reduced Cart:", reducedCart);
+  
+      try {
+        // Save cart items to localStorage
+        localStorage.setItem('cartItems', JSON.stringify(reducedCart));
+        
+        // Verify that cartItems are saved in localStorage
+        const storedCart = localStorage.getItem('cartItems');
+        console.log("Stored Cart in localStorage:", storedCart);
+
+        if (!storedCart) {
+          throw new Error("Failed to save cart items in localStorage.");
+        }
+
+        // Use setTimeout to delay the redirect
+        setTimeout(() => {
+          console.log("Redirecting to CusPay.html...");
+          window.location.href = 'CusPay.html'; // Adjust path if necessary
+        }, 500); // 500ms delay
+      } catch (error) {
+        console.error("Error during checkout:", error);
+        alert("An error occurred during checkout. Please try again.");
+      }
+    }
+  </script>
+
+</body>
+</html>
