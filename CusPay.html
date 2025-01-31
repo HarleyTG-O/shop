@@ -261,7 +261,7 @@
       const cashAppUser = document.getElementById('cashAppUser').value;
       const transactionId = document.getElementById('transactionId').value;
       const discordUsername = document.getElementById('discord-username').value;
-      const serviceType = `Item: ${document.getElementById('item').innerText}, Duration: ${document.getElementById('duration').innerText}`;
+      const serviceType = `Items: ${document.getElementById('selectedItems').innerText}, totalPrice: ${document.getElementById('totalPrice').innerText}`;
 
       if (!customerId || !name || !email || !cashAppUser || !transactionId || !serviceType) {
         alert('Please fill out all fields.');
