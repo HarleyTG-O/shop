@@ -195,22 +195,25 @@
   </div>
 
   <script>
-    // Sample menuPlans structure
-    const menuPlans = [
-      {
-        name: "Stand's Menu Rental",
-        prices: { '7': 5, '30': 20 },
-        rented: false,
-        rentalEndDate: null
-      },
-      {
-        name: "0xCheats RDR2 Menu Rental",
-        prices: { '7': 3, '30': 15 },
-        rented: false,
-        rentalEndDate: null
-      }
-    ];
-
+  // Data source for the rental plans
+const menuPlans = [
+  {
+    name: "Stand's Menu Rental",
+    image: "Images/stand_logo.jpg",
+    features: "Full access to the Stand's menu for your rental period.",
+    prices: { "7": "$5", "30": "$20" },
+    rented: false,  // Flag to track rental status
+    rentalStartDate: null, // The start date of the rental
+  },
+  {
+    name: "0xCheats RDR2 Menu Rental",
+    image: "Images/0xcheats_logo.png",
+    features: "Full access to the 0xCheats RDR2 menu for your rental period.",
+    prices: { "7": "$3", "30": "$15" },
+    rented: true,  // Flag to track rental status
+    rentalStartDate: "2025-01-26T20:52:00", // Example: Rental started a week ago
+  },
+];
     // Function to navigate to the payment page with selected item and duration
     function goToPaymentPage(item, duration) {
       if (duration) {
