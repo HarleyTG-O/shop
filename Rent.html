@@ -1,290 +1,451 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Harley's Menu Rental</title>
+
   <link rel="icon" href="Images/HTG.png" type="image/png">
+
   <style>
+
     body {
+
       font-family: Arial, sans-serif;
+
       margin: 0;
+
       padding: 0;
+
       background-color: #121212;
+
       color: #f0f0f0;
+
     }
+
+
 
     h1 {
+
       text-align: center;
+
       color: #fff;
+
       margin-top: 40px;
+
       font-size: 2.5rem;
+
       font-weight: 600;
+
     }
+
+
 
     .container {
+
       max-width: 900px;
+
       margin: 40px auto;
+
       padding: 20px;
+
       background-color: #1c1c1c;
+
       border-radius: 10px;
+
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+
       display: flex;
+
       justify-content: center; /* Center the content horizontally */
+
       gap: 20px; /* Add some space between the cards */
+
       flex-wrap: wrap; /* Allow the cards to wrap if there's not enough space */
+
     }
+
+
 
     .plan-card {
-      background-color: #222;
-      border: 1px solid #444;
-      border-radius: 10px;
-      padding: 15px; /* Reduce padding to make it smaller */
-      width: calc(50% - 20px); /* Each card takes up 50% of the container's width */
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      margin-bottom: 20px; /* Optional: Add margin for spacing between rows */
-    }
+
+  background-color: #222;
+
+  border: 1px solid #444;
+
+  border-radius: 10px;
+
+  padding: 15px; /* Reduce padding to make it smaller */
+
+  width: calc(50% - 20px); /* Each card takes up 50% of the container's width */
+
+  text-align: center;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  margin-bottom: 20px; /* Optional: Add margin for spacing between rows */
+
+}
+
+
+
+
 
     .plan-card:hover {
+
       transform: scale(1.05);
+
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+
     }
+
+
 
     .plan-card img {
+
       max-width: 100%;
+
       height: auto;
+
       margin-bottom: 15px;
+
     }
+
+
 
     .plan-card h2 {
+
       font-size: 1.5rem;
+
       margin-bottom: 10px;
+
       color: #00c2ed;
+
     }
+
+
 
     .plan-card p {
+
       font-size: 1rem;
+
       color: #ccc;
+
       margin-bottom: 15px;
+
     }
+
+
 
     .plan-card a {
+
       display: inline-block;
+
       padding: 10px 20px;
+
       background-color: #007bff;
+
       color: white;
+
       border-radius: 8px;
+
       text-decoration: none;
+
       font-size: 1rem;
+
       transition: background-color 0.3s ease;
+
     }
+
+
 
     .plan-card a:hover {
+
       background-color: #0056b3;
+
     }
+
+
 
     .plan-card select {
+
       padding: 10px;
+
       font-size: 1rem;
+
       border-radius: 8px;
+
       margin-bottom: 10px;
+
       width: 100%;
+
     }
+
+
 
     .nav-buttons {
+
       text-align: center;
+
       margin-top: 30px;
+
       margin-bottom: 20px; /* Add space below the nav bar */
+
     }
+
+
+
+
 
     .nav-buttons button {
+
       margin: 5px;
+
       padding: 10px 20px;
+
       background-color: #007bff;
+
       color: white;
+
       border-radius: 8px;
+
       font-size: 1rem;
+
       border: none;
+
       cursor: pointer;
+
     }
+
+
 
     .nav-buttons button:hover {
+
       background-color: #0056b3;
+
     }
+
+    
 
     @media (max-width: 600px) {
-      .plan-card {
-        width: 100%; /* On smaller screens, each card will take full width */
-        padding: 10px; /* Adjust padding for small screens */
-      }
-    }
+
+  .plan-card {
+
+    width: 100%; /* On smaller screens, each card will take full width */
+
+    padding: 10px; /* Adjust padding for small screens */
+
+  }
+
+}
+
+
+
   </style>
+
 </head>
+
 <body>
 
+
+
   <div class="container">
+
     <h1>
-      <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
-      Harley's Services - Mod Menu Rental
-    </h1>
+
+        <img src="Images/HTG.png" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+
+        Harley's Services - Mod Menu Rental
+
+      </h1>
+
     <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem; color: #ccc;">
+
       Rent our menu for your use. Select your rental duration below.
+
     </p>
 
-    <!-- Navigation Buttons -->
+
+
+        <!-- Navigation Buttons -->
+
     <div class="nav-buttons">
-      <button onclick="window.history.back()">Back</button>
-      <button onclick="window.location.href='index.html'">Go Home</button>
-      <button onclick="window.location.href='Rent.html'">Rent Menus</button>
-      <button onclick="window.location.href='Bot.html'">Buy Bot Hosting</button>
-      <button onclick="window.location.href='Resell.html'">Reselling</button>
+
+        <button onclick="window.history.back()">Back</button>
+
+        <button onclick="window.location.href='index.html'">Go Home</button>
+
+        <button onclick="window.location.href='Rent.html'">Rent Menus</button>
+
+        <button onclick="window.location.href='Bot.html'">Rent Bot Hosting</button>
+
     </div>
+
+
 
     <!-- Stand's Menu Rental Plan -->
-    <div class="plan-card" id="StandsMenuRental">
+
+    <div class="plan-card">
+
       <img src="Images/stand_logo.jpg" alt="Stand's Menu Logo">
+
       <h2>Stand's Menu Rental</h2>
+
       <p><strong>Features:</strong> Full access to the Stand's menu for your rental period.</p>
+
       
+
       <!-- Pricing Options -->
+
       <p><strong>Price:</strong></p>
-      <p><strong>7 Days:</strong> $5<br><strong>30 Days:</strong> $20</p>
+
+      <p><strong>7 Days:</strong> $7<br><strong>30 Days:</strong> $15</p>
+
       
+
       <!-- Custom Days Selection -->
+
       <p><strong>Custom Duration:</strong></p>
+
       <select id="customDuration1">
+
         <option value="7">7 Days</option>
+
         <option value="30">30 Days</option>
+
       </select>
+
+
 
       <a href="#" onclick="goToPaymentPage('Stand\'s Menu Rental', document.getElementById('customDuration1').value)">Rent Menu</a>
+
     </div>
+
+
 
     <!-- 0xCheats RDR2 Menu Rental Plan -->
-    <div class="plan-card" id="0xCheatsRDR2MenuRental">
+
+    <div class="plan-card">
+
       <img src="Images/0xcheats_logo.png" alt="0xCheats RDR2 Menu Logo">
+
       <h2>0xCheats RDR2 Menu Rental</h2>
+
       <p><strong>Features:</strong> Full access to the 0xCheats RDR2 menu for your rental period.</p>
+
       
+
       <!-- Pricing Options -->
+
       <p><strong>Price:</strong></p>
+
       <p><strong>7 Days:</strong> $7<br><strong>30 Days:</strong> $15</p>
+
       
+
       <!-- Custom Days Selection -->
+
       <p><strong>Custom Duration:</strong></p>
+
       <select id="customDuration2">
+
         <option value="7">7 Days</option>
+
         <option value="30">30 Days</option>
+
       </select>
 
+
+
       <a href="#" onclick="goToPaymentPage('0xCheats RDR2 Menu Rental', document.getElementById('customDuration2').value)">Rent Menu</a>
+
     </div>
+
   </div>
 
-  <script>
-        // Data source for the rental plans
-      const menuPlans = [
-        {
-          name: "Stand's Menu Rental",
-          image: "Images/stand_logo.jpg",
-          features: "Full access to the Stand's menu for your rental period.",
-          prices: { "7": "$7", "30": "$15" },
-        },
-        {
-          name: "0xCheats RDR2 Menu Rental",
-          image: "Images/0xcheats_logo.png",
-          features: "Full access to the 0xCheats RDR2 menu for your rental period.",
-          prices: { "7": "$7", "30": "$15" },  // Price updated to $7 for 7 days
-        },
-      ];
 
 
-    // Function to navigate to the payment page with selected item and duration
-    function goToPaymentPage(item, duration) {
-      if (duration) {
-        // Find the selected plan from the menuPlans array
-        const selectedPlan = menuPlans.find(plan => plan.name === item);
+<script>
 
-        if (selectedPlan) {
-          // Get the price for the selected duration
-          const price = selectedPlan.prices[duration];
+  // Data source for the rental plans
 
-          // Store values in localStorage
-          localStorage.setItem('selectedItem', item);
-          localStorage.setItem('selectedDuration', duration);
-          localStorage.setItem('selectedPrice', price);
+  const menuPlans = [
 
-          // Calculate the rental end date based on the duration (e.g., 7 or 30 days)
-          const currentDate = new Date();
-          const rentalEndDate = new Date(currentDate);
+    {
 
-          // Store the rental expiration date
-          selectedPlan.rentalEndDate = rentalEndDate.toISOString();
-          selectedPlan.rented = true;
-          localStorage.setItem(item + 'Rented', true);
+      name: "Stand's Menu Rental",
 
-          // Update the rental status on the page
-          updateRentalStatus(item);
+      image: "Images/stand_logo.jpg",
 
-          // Redirect to Pay.html page
-          window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
-        }
+      features: "Full access to the Stand's menu for your rental period.",
+
+      prices: { "7": "$7", "30": "$15" },
+
+    },
+
+    {
+
+      name: "0xCheats RDR2 Menu Rental",
+
+      image: "Images/0xcheats_logo.png",
+
+      features: "Full access to the 0xCheats RDR2 menu for your rental period.",
+
+      prices: { "7": "$7", "30": "$15" },
+
+    },
+
+  ];
+
+
+
+  // Function to navigate to the payment page with selected item and duration
+
+  function goToPaymentPage(item, duration) {
+
+    if (duration) {
+
+      // Find the selected plan from the menuPlans array
+
+      const selectedPlan = menuPlans.find(plan => plan.name === item);
+
+
+
+      if (selectedPlan) {
+
+        // Get the price for the selected duration
+
+        const price = selectedPlan.prices[duration];
+
+
+
+        // Store values in localStorage
+
+        localStorage.setItem('selectedItem', item);
+
+        localStorage.setItem('selectedDuration', duration);
+
+        localStorage.setItem('selectedPrice', price);
+
+
+
+        // Redirect to Pay.html page
+
+        window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
+
       }
+
     }
 
-    // Function to check and update the rental status on page load
-    function updateRentalStatus(item) {
-      const menuElement = document.getElementById(item.replace(/\s/g, ''));
+  }
 
-      // Find the link element and disable it if the menu is rented
-      const rentLink = menuElement.querySelector('a');
-      
-      const plan = menuPlans.find(plan => plan.name === item);
+</script>
 
-      if (plan.rented) {
-        rentLink.style.pointerEvents = 'none';  // Disable the link
-        rentLink.style.opacity = '0.5';  // Optionally make the link look disabled
-      } else {
-        rentLink.style.pointerEvents = 'auto';  // Enable the link
-        rentLink.style.opacity = '1';  // Make the link look enabled
-      }
-
-      // Check if rental time has expired and re-enable link
-      const currentDate = new Date();
-      const rentalEndDate = new Date(plan.rentalEndDate);
-
-      if (currentDate >= rentalEndDate) {
-        plan.rented = false;  // Set rented to false after the rental period ends
-        localStorage.setItem(item + 'Rented', false);
-        localStorage.removeItem(item + 'RentalEndDate');
-        updateRentalStatus(item);  // Update the rental status display
-      }
-
-      // Mark as rented with a class if rented
-      if (plan.rented) {
-        menuElement.classList.add('rented');  // Add rented class to show the flag
-      } else {
-        menuElement.classList.remove('rented');
-      }
-    }
-
-    // On page load, check for rental status and update the display
-    window.onload = function() {
-      updateRentalStatus("Stand's Menu Rental");
-      updateRentalStatus("0xCheats RDR2 Menu Rental");
-
-      // Check and reset rental statuses based on the stored values
-      menuPlans.forEach(plan => {
-        const rentalEndDate = localStorage.getItem(plan.name + 'RentalEndDate');
-        
-        if (rentalEndDate) {
-          plan.rentalEndDate = rentalEndDate;
-          plan.rented = true;
-          updateRentalStatus(plan.name);
-        }
-      });
-    };
-  </script>
 </body>
+
 </html>
