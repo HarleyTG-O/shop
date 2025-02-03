@@ -239,7 +239,20 @@
   function updateRentalStatus(item) {
     const menuElement = document.getElementById(item.replace(/\s/g, ''));
 
-    if (localStorage.getItem(item + 'Rented')) {
+    // Find the link element and disable it if the menu is rented
+    const rentLink = menuElement.querySelector('a');
+    
+    const plan = menuPlans.find(plan => plan.name === item);
+    if (plan.rented) {
+      rentLink.style.pointerEvents = 'none';  // Disable the link
+      rentLink.style.opacity = '0.5';  // Optionally make the link look disabled
+    } else {
+      rentLink.style.pointerEvents = 'auto';  // Enable the link
+      rentLink.style.opacity = '1';  // Make the link look enabled
+    }
+
+    // Mark as rented with a class if rented
+    if (plan.rented) {
       menuElement.classList.add('rented');  // Add rented class to show the flag
     } else {
       menuElement.classList.remove('rented');
