@@ -158,7 +158,7 @@
         <option value="30">30 Days</option>
       </select>
 
-      <a href="#" onclick="goToPaymentPage('Stand\'s Menu Rental', document.getElementById('customDuration1').value)">Rent Menu</a>
+      <a href="#" class="rent-link" onclick="goToPaymentPage('Stand\'s Menu Rental', document.getElementById('customDuration1').value)">Rent Menu</a>
     </div>
 
     <!-- 0xCheats RDR2 Menu Rental Plan -->
@@ -178,7 +178,7 @@
         <option value="30">30 Days</option>
       </select>
 
-      <a href="#" onclick="goToPaymentPage('0xCheats RDR2 Menu Rental', document.getElementById('customDuration2').value)">Rent Menu</a>
+      <a href="#" class="rent-link" onclick="goToPaymentPage('0xCheats RDR2 Menu Rental', document.getElementById('customDuration2').value)">Rent Menu</a>
     </div>
   </div>
 
@@ -243,7 +243,7 @@
       const menuElement = document.getElementById(item.replace(/\s/g, ''));
 
       // Find the link element and disable it if the menu is rented
-      const rentLink = menuElement.querySelector('a');
+      const rentLink = menuElement.querySelector('.rent-link');
       
       const plan = menuPlans.find(plan => plan.name === item);
 
