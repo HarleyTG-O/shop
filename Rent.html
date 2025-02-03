@@ -30,20 +30,20 @@
       border-radius: 10px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
       display: flex;
-      justify-content: center; /* Center the content horizontally */
-      gap: 20px; /* Add some space between the cards */
-      flex-wrap: wrap; /* Allow the cards to wrap if there's not enough space */
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     .plan-card {
       background-color: #222;
       border: 1px solid #444;
       border-radius: 10px;
-      padding: 15px; /* Reduce padding to make it smaller */
-      width: calc(50% - 20px); /* Each card takes up 50% of the container's width */
+      padding: 15px;
+      width: calc(50% - 20px);
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      margin-bottom: 20px; /* Optional: Add margin for spacing between rows */
+      margin-bottom: 20px;
     }
 
     .plan-card:hover {
@@ -92,10 +92,20 @@
       width: 100%;
     }
 
+    .rented {
+      background-color: #f4f4f4;
+    }
+
+    .unavailable {
+      background-color: #e0e0e0;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
     .nav-buttons {
       text-align: center;
       margin-top: 30px;
-      margin-bottom: 20px; /* Add space below the nav bar */
+      margin-bottom: 20px;
     }
 
     .nav-buttons button {
@@ -115,8 +125,8 @@
 
     @media (max-width: 600px) {
       .plan-card {
-        width: 100%; /* On smaller screens, each card will take full width */
-        padding: 10px; /* Adjust padding for small screens */
+        width: 100%;
+        padding: 10px;
       }
     }
   </style>
@@ -159,6 +169,7 @@
       </select>
 
       <a href="#" class="rent-link" onclick="goToPaymentPage('Stand\'s Menu Rental', document.getElementById('customDuration1').value)">Rent Menu</a>
+      <p class="rental-status" id="StandsMenuRentalStatus"></p>
     </div>
 
     <!-- 0xCheats RDR2 Menu Rental Plan -->
@@ -179,117 +190,105 @@
       </select>
 
       <a href="#" class="rent-link" onclick="goToPaymentPage('0xCheats RDR2 Menu Rental', document.getElementById('customDuration2').value)">Rent Menu</a>
+      <p class="rental-status" id="0xCheatsRDR2MenuRentalStatus"></p>
     </div>
   </div>
 
   <script>
-    // Data source for the rental plans
+    // Sample menuPlans structure
     const menuPlans = [
       {
         name: "Stand's Menu Rental",
-        image: "Images/stand_logo.jpg",
-        features: "Full access to the Stand's menu for your rental period.",
-        prices: { "7": "$5", "30": "$20" },
-        rented: false,  // Flag to track rental status
-        rentalEndDate: null, // The expiration date of the rental
+        prices: { '7': 5, '30': 20 },
+        rented: false,
+        rentalEndDate: null
       },
       {
         name: "0xCheats RDR2 Menu Rental",
-        image: "Images/0xcheats_logo.png",
-        features: "Full access to the 0xCheats RDR2 menu for your rental period.",
-        prices: { "7": "$3", "30": "$15" },
-        rented: true,  // Flag to track rental status
-        rentalEndDate: "2025-02-02T20:52:00",  // Set to "Yesterday at 8:52 PM"
-      },
+        prices: { '7': 3, '30': 15 },
+        rented: false,
+        rentalEndDate: null
+      }
     ];
 
     // Function to navigate to the payment page with selected item and duration
     function goToPaymentPage(item, duration) {
       if (duration) {
-        // Find the selected plan from the menuPlans array
         const selectedPlan = menuPlans.find(plan => plan.name === item);
-
+  
         if (selectedPlan) {
-          // Get the price for the selected duration
           const price = selectedPlan.prices[duration];
-
-          // Store values in localStorage
+  
           localStorage.setItem('selectedItem', item);
           localStorage.setItem('selectedDuration', duration);
           localStorage.setItem('selectedPrice', price);
-
-          // Calculate the rental end date based on the duration (e.g., 7 or 30 days)
+  
           const currentDate = new Date();
           const rentalEndDate = new Date(currentDate);
           rentalEndDate.setDate(currentDate.getDate() + (duration === "7" ? 7 : 30));
-
-          // Store the rental expiration date
+  
           selectedPlan.rentalEndDate = rentalEndDate.toISOString();
           selectedPlan.rented = true;
           localStorage.setItem(item + 'Rented', true);
           localStorage.setItem(item + 'RentalEndDate', selectedPlan.rentalEndDate);
-
-          // Update the rental status on the page
+  
           updateRentalStatus(item);
-
-          // Redirect to Pay.html page
-          window.location.href = "Pay.html"; // Ensure Pay.html is in the correct path
+  
+          window.location.href = "Pay.html";
         }
       }
     }
-
+  
     // Function to check and update the rental status on page load
     function updateRentalStatus(item) {
-      const menuElement = document.getElementById(item.replace(/\s/g, ''));
-
-      // Find the link element and disable it if the menu is rented
-      const rentLink = menuElement.querySelector('.rent-link');
-      
+      const planElement = document.getElementById(item.replace(/\s|\W/g, ''));
+      const statusElement = document.getElementById(item.replace(/\s|\W/g, '') + 'Status');
+  
+      if (!planElement || !statusElement) return;
+  
       const plan = menuPlans.find(plan => plan.name === item);
-
-      if (plan.rented) {
-        rentLink.style.pointerEvents = 'none';  // Disable the link
-        rentLink.style.opacity = '0.5';  // Optionally make the link look disabled
-      } else {
-        rentLink.style.pointerEvents = 'auto';  // Enable the link
-        rentLink.style.opacity = '1';  // Make the link look enabled
-      }
-
-      // Check if rental time has expired and re-enable link
       const currentDate = new Date();
-      const rentalEndDate = new Date(plan.rentalEndDate);
-
-      if (currentDate >= rentalEndDate) {
-        plan.rented = false;  // Set rented to false after the rental period ends
+  
+      if (plan.rented && currentDate >= new Date(plan.rentalEndDate)) {
+        plan.rented = false;
         localStorage.setItem(item + 'Rented', false);
         localStorage.removeItem(item + 'RentalEndDate');
-        updateRentalStatus(item);  // Update the rental status display
       }
-
-      // Mark as rented with a class if rented
+  
       if (plan.rented) {
-        menuElement.classList.add('rented');  // Add rented class to show the flag
+        statusElement.textContent = `Rented until ${new Date(plan.rentalEndDate).toLocaleString()}. Next available in ${getRemainingTime(plan.rentalEndDate)}.`;
+        planElement.classList.add('rented');
+        planElement.classList.remove('unavailable');
       } else {
-        menuElement.classList.remove('rented');
+        statusElement.textContent = 'Available for rental.';
+        planElement.classList.remove('rented');
       }
     }
 
-    // On page load, check for rental status and update the display
+    // Function to get remaining time before the menu becomes available
+    function getRemainingTime(rentalEndDate) {
+      const currentDate = new Date();
+      const endDate = new Date(rentalEndDate);
+      const remainingTime = endDate - currentDate;
+  
+      const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  
+      return `${days} day(s) and ${hours} hour(s)`;
+    }
+  
     window.onload = function() {
-      updateRentalStatus("Stand's Menu Rental");
-      updateRentalStatus("0xCheats RDR2 Menu Rental");
-
-      // Check and reset rental statuses based on the stored values
       menuPlans.forEach(plan => {
         const rentalEndDate = localStorage.getItem(plan.name + 'RentalEndDate');
-        
+  
         if (rentalEndDate) {
           plan.rentalEndDate = rentalEndDate;
           plan.rented = true;
-          updateRentalStatus(plan.name);
         }
+        updateRentalStatus(plan.name);
       });
     };
   </script>
 </body>
 </html>
+
