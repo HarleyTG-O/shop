@@ -31,11 +31,22 @@
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
     }
 
+    .info-card {
+      background-color: #ffcc00;
+      color: #000;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(255, 204, 0, 0.6);
+    }
+
     /* 2x5 grid layout for the service gallery */
     .service-gallery {
       display: grid;
-      grid-template-columns: repeat(5, 1fr); /* 5 columns */
-      gap: 20px; /* Adjusted gap between items */
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
       grid-auto-rows: auto;
       justify-items: center;
       margin-top: 20px;
@@ -54,7 +65,6 @@
       flex-direction: column;
       justify-content: space-between;
     }
-
 
     .service-card:hover {
       transform: scale(1.05);
@@ -100,12 +110,13 @@
     /* Media Query for smaller screens */
     @media (max-width: 768px) {
       .service-gallery {
-        grid-template-columns: 1fr; /* Stack all items in one column */
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
+  <div class="info-card">Under Development - Check with Discord before payment.</div>
 
   <div class="container">
     <h1>
@@ -117,7 +128,6 @@
     </p>
 
     <div class="service-gallery">
-      <!-- Discord Server -->
       <div class="service-card">
         <img src="Images/icon_clyde_white_RGB.png" alt="Discord Server">
         <h2>Discord Server</h2>
@@ -125,7 +135,6 @@
         <a href="https://discord.gg/mpQvUSmW2s">Join Now</a>
       </div>
 
-      <!-- Help and Support -->
       <div class="service-card">
         <img src="Images/HTG.png" alt="Help and Support">
         <h2>Help and Support</h2>
@@ -133,7 +142,6 @@
         <a href="Help.html">Get Support</a>
       </div>
 
-      <!-- Renting Menus -->
       <div class="service-card">
         <img src="Images/HTG.png" alt="Renting Menus">
         <h2>Custom Items</h2>
@@ -141,7 +149,6 @@
         <a href="Custom.html">Explore Custom Items</a>
       </div>
 
-      <!-- Bot Hosting -->
       <div class="service-card">
         <img src="Images/HTG.png" alt="Bot Hosting">
         <h2>Bot Hosting</h2>
@@ -149,7 +156,6 @@
         <a href="Bot.html">View Hosting Plans</a>
       </div>
 
-      <!-- Renting Menus -->
       <div class="service-card">
         <img src="Images/HTG.png" alt="Renting Menus">
         <h2>Renting Menus</h2>
@@ -157,7 +163,6 @@
         <a href="Rent.html">View Rental Menus</a>
       </div>
 
-      <!-- Reselling -->
       <div class="service-card">
         <img src="Images/HTG.png" alt="Reselling">
         <h2>Reselling</h2>
@@ -166,6 +171,5 @@
       </div>
     </div>
   </div>
-
 </body>
 </html>
