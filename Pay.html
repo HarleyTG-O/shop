@@ -180,18 +180,6 @@
       <button id="payCompletedBtn" class="payment-form-button" onclick="unlockPaymentForm()">Pay Completed</button>
     </div>
 
-    <!-- Ko-fi Payment Form -->
-    <div class="card payment-form" id="koFiForm" style="display: none;">
-      <h3>Support via Ko-fi</h3>
-      <p>If you prefer, you can make a one-time payment through Ko-fi:</p>
-      
-      <p>Include your <strong>Customer ID</strong> in the message field when making the donation.</p>
-      <input type="text" id="customerId" readonly required>
-      <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
-      <iframe id='kofiframe' src='https://ko-fi.com/harleytg/?hidefeed=true&widget=true&embed=true&preview=true&message=CustomerID%3D${encodeURIComponent(document.getElementById("customerId").value)}' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='harleytg'></iframe>
-    </div>
-
-
     <!-- Payment details form (Initially hidden) -->
     <div class="card payment-form" id="paymentDetails" style="display: none;">
       <p>Enter your payment details below and press the button to continue:</p>
@@ -214,6 +202,33 @@
       <button type="button" onclick="submitTransaction()">Submit</button>
     </div>
 
+    <!-- Ko-fi Payment Form -->
+    <div class="card payment-form" id="koFiForm" style="display: none;">
+      <h3>Support via Ko-fi</h3>
+      <p>If you prefer, you can make a one-time payment through Ko-fi:</p>
+      <p>Include your <strong>Customer ID</strong> in the message field when making the donation.</p>
+      <input type="text" id="koFiCustomerId" readonly required>
+      <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
+      <br><br>
+  
+      <!-- Payment details form (Always visible) -->
+      <div class="card payment-form" id="kofipaymentDetails" style="display: block;">
+      <p>Enter your payment details below and press the button to continue:</p>
+      <input type="text" id="kofiname" placeholder="Enter Your Name" required>
+      <input type="email" id="kofiemail" placeholder="Enter Your Email" required>
+      <br><br>
+      
+      <iframe id='kofiframe' src='https://ko-fi.com/harleytg/?hidefeed=true&widget=true&embed=true&preview=true' 
+      style='border:none;width:100%;padding:4px;background:#21212181;' height='712' title='harleytg'></iframe>
+      
+      <br><br>
+  
+      <button type="button" onclick="submitTransaction()">Submit</button>
+      </div>
+  </div>
+
+    
+
   </div>
 
   <div id="overlay">
@@ -224,98 +239,125 @@
   </div>
 
   <script>
-    // Retrieve selected item and price from localStorage and display them
     let selectedItem = localStorage.getItem('selectedItem');
     let selectedPrice = localStorage.getItem('selectedPrice');
 
     document.getElementById('item').innerText = selectedItem || 'No Item Selected';
     document.getElementById('price').innerText = selectedPrice || 'Not selected';
 
-    // Function to generate a random Customer ID
     function generateCustomerId() {
       const customerId = Math.random().toString(36).substr(2, 8).toUpperCase();
       document.getElementById('customerId').value = customerId;
+      document.getElementById('koFiCustomerId').value = customerId;
     }
 
-    // Automatically generate a Customer ID on page load
+
     generateCustomerId();
 
-    // Unlock the payment details form when "Pay Completed" button is clicked
     function unlockPaymentForm() {
       document.getElementById('paymentDetails').style.display = 'block';
       document.getElementById('payCompletedBtn').style.display = 'none';
     }
 
-    // Function to submit payment details
     async function submitTransaction() {
-      const customerId = document.getElementById('customerId').value;
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const cashAppUser = document.getElementById('cashAppUser').value;
-      const transactionId = document.getElementById('transactionId').value;
-      const discordUsername = document.getElementById('discord-username').value;
-      const serviceType = `Item: ${document.getElementById('item').innerText}, Duration: ${document.getElementById('duration').innerText}`;
+      const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+      let paymentDetails = {};
 
-      if (!customerId || !name || !email || !cashAppUser || !transactionId || !serviceType) {
-        alert('Please fill out all fields.');
-        return;
+      if (selectedPaymentMethod === 'cashApp') {
+        const customerId = document.getElementById('cashAppCustomerId').value;
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const transactionId = document.getElementById('transactionId').value;
+        const discordUsername = document.getElementById('discord-username').value;
+        const serviceType = `Item: ${document.getElementById('item').innerText}, Duration: ${document.getElementById('duration').innerText}`;
+
+        if (!customerId || !name || !email || !transactionId) {
+          alert('Please fill out all required fields.');
+          return;
+        }
+
+
+        paymentDetails = {
+          content: 'Payment Received (Cash App)',
+          embeds: [{
+            title: `Payment Details for ${name}`,
+            fields: [
+              { name: 'Customer ID (CashApp)', value: customerId },
+              { name: 'Service Type', value: serviceType },
+              { name: 'Name', value: name },
+              { name: 'Email', value: email },
+              { name: 'Discord Username', value: discordUsername },
+              { name: 'Transaction ID', value: transactionId }
+            ]
+          }]
+        };
+      } else if (selectedPaymentMethod === 'koFi') {
+        const customerId = document.getElementById('koFiCustomerId').value;
+        const name = document.getElementById('kofiname').value;
+        const email = document.getElementById('kofiemail').value;
+        const serviceType = `Item: ${document.getElementById('item').innerText}, Duration: ${document.getElementById('duration').innerText}`;
+
+        if (!customerId || !name || !email || !serviceType) {
+          alert('Please fill out all Ko-Fi fields.');
+          return;
+        }
+
+        paymentDetails = {
+          content: 'Payment Received (Ko-Fi)',
+          embeds: [{
+            title: `Payment Details for ${name}`,
+            fields: [
+              { name: 'Customer ID (Ko-Fi)', value: customerId },
+              { name: 'Service Type', value: serviceType },
+              { name: 'Name', value: name },
+              { name: 'Email', value: email },
+            ]
+          }]
+        };
       }
 
-      const paymentDetails = {
-        content: 'Payment Received',
-        embeds: [{
-          title: `Payment Details for ${name}`,
-          fields: [
-            { name: 'Customer ID', value: customerId },
-            { name: 'Service Type', value: serviceType },
-            { name: 'Name', value: name },
-            { name: 'Email', value: email },
-            { name: 'Cash App Username', value: cashAppUser },
-            { name: 'Transaction ID', value: transactionId },
-            { name: 'Discord Username', value: discordUsername || 'N/A' }
-          ]
-        }]
-      };
+      await sendToWebhook(paymentDetails);
+    }
 
-      try {
-        const response = await fetch('https://discord.com/api/webhooks/1334906470663196783/nTBe0GuAjgekzWIDlkl2VYx_4Xrhy_vIni40DWfCgBKCJinDltIsSNQh0UIyWGPBx7Bg', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(paymentDetails)
-        });
+    async function sendToWebhook(paymentDetails) {
+      const webhookUrl = 'https://discord.com/api/webhooks/1334906470663196783/nTBe0GuAjgekzWIDlkl2VYx_4Xrhy_vIni40DWfCgBKCJinDltIsSNQh0UIyWGPBx7Bg';
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paymentDetails)
+      });
 
+      if (response.ok) {
+        alert('Payment Submitted Successfully!');
         document.getElementById('overlay').style.display = 'block';
-
-      } catch (error) {
-        alert('An error occurred while sending your payment details. Please try again later.');
-      }
-    }
-
-    // Toggle between payment methods
-    function togglePaymentMethod() {
-      const cashAppForm = document.getElementById('cashAppForm');
-      const koFiForm = document.getElementById('koFiForm');
-      const paymentDetails = document.getElementById('paymentDetails');
-
-      if (document.getElementById('cashAppOption').checked) {
-        cashAppForm.style.display = 'block';
-        koFiForm.style.display = 'none';
-        paymentDetails.style.display = 'none';
-      } else if (document.getElementById('koFiOption').checked) {
-        cashAppForm.style.display = 'none';
-        koFiForm.style.display = 'block';
-        paymentDetails.style.display = 'none';
       } else {
-        cashAppForm.style.display = 'none';
-        koFiForm.style.display = 'none';
-        paymentDetails.style.display = 'none';
+        alert('Something went wrong, please try again later.');
       }
     }
 
-    // Check if Discord username is lowercase
-    function checkLowercase() {
+    function togglePaymentMethod() {
+        const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+        const cashAppForm = document.getElementById('cashAppForm');
+        const koFiForm = document.getElementById('koFiForm');
+        const paymentDetails = document.getElementById('paymentDetails'); // Only for Cash App
+
+        if (selectedMethod === 'cashApp') {
+          cashAppForm.style.display = 'block';
+          koFiForm.style.display = 'none';
+          paymentDetails.style.display = 'block'; // Show payment details for Cash App
+        } else if (selectedMethod === 'koFi') {
+          cashAppForm.style.display = 'none';
+          koFiForm.style.display = 'block';
+          paymentDetails.style.display = 'none'; // Hide payment details since Ko-Fi has its own
+        } else {
+          cashAppForm.style.display = 'none';
+          koFiForm.style.display = 'none';
+          paymentDetails.style.display = 'none'; // Hide everything if no method is selected
+        }
+      }
+
+        // Check if Discord username is lowercase
+        function checkLowercase() {
       const input = document.getElementById('discord-username');
       const value = input.value;
       const isLowercase = /^[a-z]+$/.test(value); // Regular expression to check if the string is all lowercase
@@ -330,3 +372,4 @@
 
 </body>
 </html>
+
