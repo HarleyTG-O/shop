@@ -233,7 +233,6 @@
           <label for="forum-username">Forum Username <small>(Optional)</small></label>
           <input type="text" id="forum-username" name="forum-username" placeholder="Enter your Forum username (e.g., harleytg.580268)" oninput="checkForumUsername()">
         </div>
-        <button type="button" onclick="submitUserInfo()">Submit</button>
       </form>
     </div>
 
@@ -259,14 +258,6 @@
       <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
       <button id="payCompletedBtn" class="payment-form-button" onclick="unlockPaymentForm()">Pay Completed</button>
     </div>
-
-    <!-- Ko-fi Payment Form -->
-    <div class="card payment-form" id="koFiForm" style="display: none;">
-      <h3>Support via Ko-fi</h3>
-      <p>If you prefer, you can make a one-time payment through Ko-fi:</p>
-      <iframe id='kofiframe' src='https://ko-fi.com/harleytg/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='harleytg'></iframe>
-    </div>
-
     <!-- Payment details form (Initially hidden) -->
     <div class="card payment-form" id="paymentDetails" style="display: none;">
       <p>Enter your payment details below and press the button to continue:</p>
@@ -292,7 +283,29 @@
       </div>
       <button type="button" onclick="submitTransaction()">Submit</button>
     </div>
-
+    <!-- Ko-fi Payment Form -->
+    <div class="card payment-form" id="koFiForm" style="display: none;">
+      <h3>Support via Ko-fi</h3>
+      <p>If you prefer, you can make a one-time payment through Ko-fi:</p>
+      <p>Include your <strong>Customer ID</strong> in the message field when making the donation.</p>
+      <input type="text" id="koFiCustomerId" readonly required>
+      <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
+      <br><br>
+  
+      <!-- Payment details form (Always visible) -->
+      <div class="card payment-form" id="kofipaymentDetails" style="display: block;">
+      <p>Enter your payment details below and press the button to continue:</p>
+      <input type="text" id="kofiname" placeholder="Enter Your Name" required>
+      <input type="email" id="kofiemail" placeholder="Enter Your Email" required>
+      <br><br>
+      
+      <iframe id='kofiframe' src='https://ko-fi.com/harleytg/?hidefeed=true&widget=true&embed=true&preview=true' 
+      style='border:none;width:100%;padding:4px;background:#21212181;' height='712' title='harleytg'></iframe>
+      
+      <br><br>
+  
+      <button type="button" onclick="submitTransaction()">Submit</button>
+      </div>
   </div>
 
   <div id="overlay">
@@ -315,11 +328,12 @@
       document.getElementById('price').innerText = selectedPrice || 'Not selected';
     };
 
-    // Function to generate a random Customer ID
     function generateCustomerId() {
       const customerId = Math.random().toString(36).substr(2, 8).toUpperCase();
       document.getElementById('customerId').value = customerId;
+      document.getElementById('koFiCustomerId').value = customerId;
     }
+
 
     // Automatically generate a Customer ID on page load
     generateCustomerId();
