@@ -39,7 +39,7 @@
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
     }
 
-    .card {
+    .card, .form-card {
       padding: 20px;
       background-color: #2a2a2a;
       border-radius: 12px;
@@ -47,7 +47,7 @@
       margin-bottom: 20px;
     }
 
-    .card h3 {
+    .card h3, .form-card h3 {
       margin: 0 0 15px;
       color: #007bff;
       font-size: 1.5rem;
@@ -105,6 +105,7 @@
     .nav-buttons button:hover {
       background-color: #0056b3;
     }
+
     .info-card {
       background-color: #ffcc00;
       color: #000;
@@ -115,6 +116,7 @@
       margin-bottom: 20px;
       box-shadow: 0 4px 8px rgba(255, 204, 0, 0.6);
     }
+
     .info-card .discord-button {
       display: inline-block;
       padding: 12px 20px;
@@ -130,10 +132,39 @@
     .info-card .discord-button:hover {
       background-color: #0056b3;
     }
+
+    .form-card input {
+      width: 90%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: #f0f0f0;
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .Btn {
+      display: block;
+      width: 80%;
+      margin: 10px auto;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .Btn:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
-
   <div class="container">
     <h1>
       <img src="Images/HTG.png" alt="Logo">
@@ -156,17 +187,30 @@
       <a href="https://discord.gg/mpQvUSmW2s" target="_blank" class="discord-button">EO Support Here [Discord]</a>
     </div>
 
-
     <div class="card">
       <h3>Selected Details</h3>
       <p>Item: <span id="item">Not selected</span></p>
       <p>Duration: <span id="duration">Not selected</span></p>
       <p><strong>Price: </strong><span id="price">Not selected</span></p>
-      <br></br>
       <input type="text" id="customerId" readonly>
       <button id="generateBtn" onclick="generateCustomerId()">Generate New Customer ID</button>
     </div>
 
+    <div class="form-card">
+      <h3>User Information</h3>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="ticket">Ticket Number:</label>
+        <input type="text" id="ticket" required>
+        <button class="Btn" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
 
   <script>
     // Retrieve selected item, duration, and price from localStorage and display them
@@ -194,6 +238,64 @@
       document.getElementById('paymentDetails').style.display = 'block';
       document.getElementById('payCompletedBtn').style.display = 'none';
     }
+    document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".form-card form");
+    
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const ticket = document.getElementById("ticket").value;
+        const customerId = document.getElementById("customerId").value;
+        const selectedItem = document.getElementById("item").innerText;
+        const selectedDuration = document.getElementById("duration").innerText;
+        const selectedPrice = document.getElementById("price").innerText;
+
+        const webhookURL = "https://discord.com/api/webhooks/1334906470663196783/nTBe0GuAjgekzWIDlkl2VYx_4Xrhy_vIni40DWfCgBKCJinDltIsSNQh0UIyWGPBx7Bg";
+
+
+
+        const payload = {  // Fixed variable name here
+            content: 'Ticket Received (EO) - For Payment',
+            embeds: [
+                {
+                    title: "New Payment Submission",
+                    color: 3066993,
+                    fields: [
+                        { name: "Name", value: name, inline: true },
+                        { name: "Email", value: email, inline: true },
+                        { name: "Ticket Number", value: ticket, inline: true },
+                        { name: "Customer ID", value: customerId, inline: true },
+                        { name: "Item", value: selectedItem, inline: true },
+                        { name: "Duration", value: selectedDuration, inline: true },
+                        { name: "Price", value: selectedPrice, inline: true }
+                    ],
+                    timestamp: new Date().toISOString()
+                }
+            ]
+        };
+
+        try {
+            const response = await fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)  // Fixed variable name here
+            });
+
+            if (response.ok) {
+                alert("Payment submission sent successfully!");
+                form.reset();
+                generateCustomerId();
+            } else {
+                alert("Failed to send payment submission.");
+            }
+        } catch (error) {
+            console.error("Error sending webhook:", error);
+            alert("An error occurred while sending the webhook.");
+        }
+    });
+});
   </script>
 </body>
 </html>
