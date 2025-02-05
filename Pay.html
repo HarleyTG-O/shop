@@ -186,7 +186,8 @@
       <p>If you prefer, you can make a one-time payment through Ko-fi:</p>
       
       <p>Include your <strong>Customer ID</strong> in the message field when making the donation.</p>
-            <input type="text" id="customerId" readonly required>
+      <input type="text" id="customerId" readonly required>
+      <button type="button" onclick="generateCustomerId()">Generate New Customer ID</button>
       <iframe id='kofiframe' src='https://ko-fi.com/harleytg/?hidefeed=true&widget=true&embed=true&preview=true&message=CustomerID%3D${encodeURIComponent(document.getElementById("customerId").value)}' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='harleytg'></iframe>
     </div>
 
